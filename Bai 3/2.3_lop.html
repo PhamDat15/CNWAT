@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.3 - Nhập Liệu Table LOP | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho Form Nhập Liệu Lớp */
+        .form-card {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 25px 30px;
+            max-width: 480px;
+            margin: 10px auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-card h3 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 17px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            color: #334155;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 9px 12px;
+            font-size: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-submit-lop {
+            width: 100%;
+            padding: 10px;
+            background-color: #16a34a;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit-lop:hover {
+            background-color: #15803d;
+        }
+
+        /* Khối hiển thị thông báo lỗi */
+        #error-msg {
+            color: #b91c1c;
+            background-color: #fef2f2;
+            padding: 10px 14px;
+            border: 1px solid #fecaca;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        /* Khối hiển thị thông báo thành công */
+        #success-msg {
+            color: #15803d;
+            background-color: #f0fdf4;
+            padding: 10px 14px;
+            border: 1px solid #bbf7d0;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Thông tin sinh viên cá nhân hóa -->
+        <div class="student-info">
+            <h4>Thông tin SV</h4>
+            <div class="student-avatar">[ Ảnh 3x4 ]</div>
+            <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+            <p><strong>STT:</strong> 04</p>
+            <p><strong>MSSV:</strong> AT200311</p>
+            <p><strong>Lớp:</strong> AT20A</p>
+        </div>
+
+        <!-- Banner -->
+        <div class="banner">
+            <h1>HỆ THỐNG QUẢN LÝ ĐÀO TẠO & LỚP HỌC</h1>
+            <p>Khoa An toàn Thông tin - HVKTMM | Bài tập 7.3</p>
+        </div>
+
+        <!-- Sidebar menu -->
+        <div class="sidebar">
+            <h3>DANH MỤC BÀI TẬP</h3>
+            <ul>
+                <li><a href="index.html">Trang chủ tổng hợp</a></li>
+                <li><a href="2.1_viju.html">2.1. Ví dụ mẫu JS</a></li>
+                <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+                <li><a href="2.3_lop.html" class="active">2.3. Form Lớp</a></li>
+                <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+                <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+                <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+                <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+                <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+                <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+                <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+                <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+                <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+            </ul>
+        </div>
+
+        <!-- Nội dung chính -->
+        <div class="main-content">
+            <h2 class="content-title">MỤC 7.3: THIẾT KẾ FORM NHẬP LIỆU CHO TABLE LOP</h2>
+
+            <div class="form-card">
+                <h3>Nhập Dữ Liệu Lớp</h3>
+
+                <!-- Thông báo lỗi hoặc thành công -->
+                <div id="error-msg"></div>
+                <div id="success-msg"></div>
+
+                <form id="frmLop" onsubmit="return validateFormLop();">
+                    <div class="form-group">
+                        <label for="malop">Mã Lớp (Char 6 - Tối đa 6 ký tự):</label>
+                        <input type="text" id="malop" placeholder="Ví dụ: AT20A hoặc CNTT01" maxlength="6">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenlop">Tên Lớp (Char 50 - Tối đa 50 ký tự):</label>
+                        <input type="text" id="tenlop" placeholder="Ví dụ: An Toàn Thông Tin 20A">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="khoahoc">Khóa Học (Integer - Số nguyên dương):</label>
+                        <input type="number" id="khoahoc" placeholder="Ví dụ: 20">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gvcn">Giáo Viên Chủ Nhiệm (Char 50):</label>
+                        <input type="text" id="gvcn" placeholder="Ví dụ: TS. Nguyễn Văn A">
+                    </div>
+
+                    <button type="submit" class="btn-submit-lop">LƯU DỮ LIỆU LỚP</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================================
+           JAVASCRIPT KIỂM TRA DỮ LIỆU ĐẦU VÀO CHO FORM TABLE LOP
+           Sinh viên thực hiện: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+           ========================================================================= */
+
+        function validateFormLop() {
+            // 1. Lấy dữ liệu và loại bỏ khoảng trắng ở 2 đầu bằng hàm trim()
+            var maLop = document.getElementById("malop").value.trim();
+            var tenLop = document.getElementById("tenlop").value.trim();
+            var khoaHoc = document.getElementById("khoahoc").value.trim();
+            var gvcn = document.getElementById("gvcn").value.trim();
+
+            var errorDiv = document.getElementById("error-msg");
+            var successDiv = document.getElementById("success-msg");
+            var errorMessage = "";
+
+            // Reset trạng thái hiển thị
+            errorDiv.style.display = "none";
+            successDiv.style.display = "none";
+
+            // 2. Kiểm tra ràng buộc MALOP (Char(6))
+            if (maLop === "") {
+                errorMessage = "Vui lòng nhập Mã Lớp.";
+            } else if (maLop.length > 6) {
+                errorMessage = "Mã Lớp không được quá 6 ký tự.";
+            }
+            // 3. Kiểm tra ràng buộc TENLOP (Char(50))
+            else if (tenLop === "") {
+                errorMessage = "Vui lòng nhập Tên Lớp.";
+            } else if (tenLop.length > 50) {
+                errorMessage = "Tên Lớp không được vượt quá 50 ký tự.";
+            }
+            // 4. Kiểm tra ràng buộc KHOAHOC (Integer, số nguyên dương)
+            else if (khoaHoc === "") {
+                errorMessage = "Vui lòng nhập Khóa Học.";
+            } else if (isNaN(khoaHoc) || parseInt(khoaHoc, 10) <= 0 || !Number.isInteger(Number(khoaHoc))) {
+                errorMessage = "Khóa Học phải là một số nguyên dương hợp lệ (Ví dụ: 20).";
+            }
+            // 5. Kiểm tra ràng buộc GVCN (Char(50))
+            else if (gvcn === "") {
+                errorMessage = "Vui lòng nhập tên Giáo Viên Chủ Nhiệm.";
+            } else if (gvcn.length > 50) {
+                errorMessage = "Tên GVCN không được vượt quá 50 ký tự.";
+            }
+
+            // --- XỬ LÝ KẾT QUẢ KIỂM TRA ---
+            if (errorMessage !== "") {
+                // Có lỗi: Hiển thị thông báo và chặn submit (return false)
+                errorDiv.style.display = "block";
+                errorDiv.innerHTML = "⚠️ " + errorMessage;
+                return false;
+            } else {
+                // Không có lỗi: Báo hợp lệ
+                successDiv.style.display = "block";
+                successDiv.innerHTML = " Dữ liệu hợp lệ! Đã lưu thông tin lớp: <strong>" + maLop + " - " + tenLop + "</strong> (Người thực hiện: Phạm Tiến Đạt).";
+                return false; // Để lại trên trang để giáo viên xem kết quả
+            }
+        }
+    </script>
+
+</body>
+
+</html>

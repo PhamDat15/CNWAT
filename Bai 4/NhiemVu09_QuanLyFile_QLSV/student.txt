@@ -1,0 +1,4 @@
+1|Pham Minh|2012-08-12|Ha Noi|1.jpg|class1
+2|Nguyen Khoi|2012-08-11|TP.HCM|2.jpg|class1
+3|Pham Hoang|2012-08-10|Ha Noi|3.jpg|class2
+4|Pham Tien Dat|2002-05-19|Ha Noi|avatar.jpg|AT20A

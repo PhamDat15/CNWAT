@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.5 - Đăng Ký Thành Viên | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS tuân theo yêu cầu Mục 7.5 của đề bài */
+        #form-wrapper {
+            width: 650px;
+            margin: 10px auto;
+            border: 1px solid #999;
+            padding: 15px 25px;
+            box-shadow: 2px 2px 8px #ccc;
+            background: #fff;
+        }
+
+        .row {
+            margin-bottom: 12px;
+            clear: both;
+        }
+
+        label.field-lbl {
+            float: left;
+            width: 150px;
+            font-weight: bold;
+            font-size: 14px;
+            padding-top: 4px;
+        }
+
+        input.field-input, textarea.field-input {
+            width: 300px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 2px;
+        }
+
+        /* Ô bắt buộc nhập có nền xanh lơ theo yêu cầu đề bài */
+        .bat-buoc {
+            background-color: #00FFFF !important;
+        }
+
+        /* Class cho ngày sinh gợi ý */
+        .gray-text {
+            color: #888888;
+        }
+        .black-text {
+            color: #000000;
+        }
+
+        /* Span báo lỗi */
+        .error {
+            color: red;
+            font-style: italic;
+            margin-left: 10px;
+            font-size: 13px;
+        }
+
+        /* Căn chỉnh nút bấm */
+        .btn-container {
+            text-align: left;
+            margin-top: 20px;
+            padding-left: 150px;
+        }
+
+        .btn-container button {
+            padding: 6px 18px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .clear-fix {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>TRANG ĐĂNG KÝ THÀNH VIÊN</h1>
+        <p>Mục 7.5: Xử lý sự kiện nâng cao (Focus, Blur, Keydown, Keyup, Masked Date, Chuẩn hóa)</p>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html" class="active">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">MỤC 7.5: FORM ĐĂNG KÝ THÀNH VIÊN</h2>
+
+        <div id="form-wrapper">
+            <form id="frmDangKy" autocomplete="off" onsubmit="return false;">
+                <!-- 1. Họ tên -->
+                <div class="row">
+                    <label class="field-lbl">Họ tên:</label>
+                    <input type="text" id="hoTen" class="field-input bat-buoc">
+                    <span id="err-hoTen" class="error"></span>
+                </div>
+
+                <!-- 2. Địa chỉ -->
+                <div class="row">
+                    <label class="field-lbl">Địa chỉ:</label>
+                    <input type="text" id="diaChi" class="field-input">
+                </div>
+
+                <!-- 3. Giới tính -->
+                <div class="row">
+                    <label class="field-lbl">Giới tính:</label>
+                    <label style="font-weight: normal; margin-right: 15px;"><input type="radio" name="gioiTinh" value="Nam" checked> Nam</label>
+                    <label style="font-weight: normal;"><input type="radio" name="gioiTinh" value="Nu"> Nữ</label>
+                </div>
+
+                <!-- 4. Ngày sinh (Placeholder giả nn/tt/nnnn) -->
+                <div class="row">
+                    <label class="field-lbl">Ngày sinh:</label>
+                    <input type="text" id="ngaySinh" class="field-input bat-buoc gray-text" value="nn/tt/nnnn" maxlength="10">
+                    <span id="err-ngaySinh" class="error"></span>
+                </div>
+
+                <!-- 5. Email -->
+                <div class="row">
+                    <label class="field-lbl">E-mail:</label>
+                    <input type="text" id="email" class="field-input bat-buoc">
+                    <span id="err-email" class="error"></span>
+                </div>
+
+                <!-- 6. Điện thoại -->
+                <div class="row">
+                    <label class="field-lbl">Điện thoại:</label>
+                    <input type="text" id="dienThoai" class="field-input">
+                </div>
+
+                <!-- 7. Khóa đăng ký -->
+                <div class="row">
+                    <label class="field-lbl">Khóa đăng ký:</label>
+                    <label style="font-weight: normal; margin-right: 8px;"><input type="checkbox"> Tiếng Anh</label>
+                    <label style="font-weight: normal; margin-right: 8px;"><input type="checkbox"> Quản trị</label>
+                    <label style="font-weight: normal;"><input type="checkbox"> CNTT</label>
+                </div>
+
+                <!-- 8. Tên sử dụng -->
+                <div class="row">
+                    <label class="field-lbl">Tên sử dụng:</label>
+                    <input type="text" id="tenSuDung" class="field-input bat-buoc">
+                    <span id="err-tenSuDung" class="error"></span>
+                </div>
+
+                <!-- 9. Mật khẩu -->
+                <div class="row">
+                    <label class="field-lbl">Mật khẩu:</label>
+                    <input type="password" id="matKhau" class="field-input bat-buoc">
+                    <span id="err-matKhau" class="error"></span>
+                </div>
+
+                <!-- 10. Gõ lại mật khẩu -->
+                <div class="row">
+                    <label class="field-lbl">Gõ lại mật khẩu:</label>
+                    <input type="password" id="nhapLaiMK" class="field-input bat-buoc">
+                    <span id="err-nhapLaiMK" class="error"></span>
+                </div>
+
+                <!-- 11. Ghi chú -->
+                <div class="row">
+                    <label class="field-lbl">Ghi chú:</label>
+                    <textarea id="ghiChu" class="field-input" rows="3"></textarea>
+                </div>
+
+                <div class="clear-fix"></div>
+
+                <!-- Nút thao tác -->
+                <div class="btn-container">
+                    <button type="button" onclick="kiemTraVaGui()">Chấp nhận</button>
+                    <button type="reset">Bỏ qua</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+    </div>
+</div>
+
+<script>
+    /* =========================================================================
+       XỬ LÝ TOÀN BỘ LOGIC MỤC 7.5: FORM ĐĂNG KÝ THÀNH VIÊN
+       Sinh viên: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+       ========================================================================= */
+
+    // 1. SỰ KIỆN KHI TRANG LOAD XONG: Focus ô họ tên và kích hoạt phím Enter chuyển ô
+    window.onload = function() {
+        var hoTenInput = document.getElementById("hoTen");
+        if (hoTenInput) {
+            hoTenInput.focus();
+        }
+        ganSuKienEnter();
+    };
+
+    // 2. CHUẨN HÓA HỌ TÊN (SỰ KIỆN ONBLUR)
+    // Tự động xóa khoảng trắng thừa và viết hoa chữ cái đầu từng từ
+    var txtHoTen = document.getElementById("hoTen");
+    txtHoTen.onblur = function() {
+        var val = this.value.trim();
+        if (val !== "") {
+            // Thay nhiều khoảng trắng liền kề bằng 1 khoảng trắng duy nhất
+            val = val.replace(/\s+/g, ' ');
+            var arr = val.split(" ");
+            for (var i = 0; i < arr.length; i++) {
+                arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1).toLowerCase();
+            }
+            this.value = arr.join(" ");
+        }
+    };
+
+    // 3. XỬ LÝ NGÀY SINH (FOCUS, BLUR, KEYUP ĐỊNH DẠNG / TỰ ĐỘNG)
+    var txtNgaySinh = document.getElementById("ngaySinh");
+
+    // Khi focus: Nếu là gợi ý nn/tt/nnnn thì xóa trống và đổi sang chữ màu đen
+    txtNgaySinh.onfocus = function() {
+        if (this.value === "nn/tt/nnnn") {
+            this.value = "";
+            this.className = "field-input bat-buoc black-text";
+        }
+    };
+
+    // Khi blur: Nếu bỏ trống thì trả lại chữ nn/tt/nnnn màu xám
+    txtNgaySinh.onblur = function() {
+        if (this.value.trim() === "") {
+            this.value = "nn/tt/nnnn";
+            this.className = "field-input bat-buoc gray-text";
+        }
+    };
+
+    // Khi gõ phím: Tự động chèn dấu / khi người dùng gõ đủ 2 số ngày hoặc 5 số ngày+tháng
+    txtNgaySinh.onkeyup = function(e) {
+        var evt = e || window.event;
+        // Bỏ qua nếu là phím Backspace (8) để người dùng xóa được
+        if (evt.keyCode !== 8) {
+            var val = this.value;
+            if (val.length === 2 || val.length === 5) {
+                this.value = val + "/";
+            }
+        }
+    };
+
+    // 4. KIỂM TRA ĐỊNH DẠNG EMAIL (ONBLUR)
+    var txtEmail = document.getElementById("email");
+    txtEmail.onblur = function() {
+        var val = this.value.trim();
+        var span = document.getElementById("err-email");
+        var regex = /^[\w\.]+@[\w\.]+\.\w+$/;
+        if (val !== "" && !regex.test(val)) {
+            span.innerHTML = "Email không đúng định dạng!";
+        } else {
+            span.innerHTML = "";
+        }
+    };
+
+    // 5. KIỂM TRA MẬT KHẨU GÕ LẠI (ONBLUR)
+    var txtNhapLai = document.getElementById("nhapLaiMK");
+    txtNhapLai.onblur = function() {
+        var pass = document.getElementById("matKhau").value;
+        var rePass = this.value;
+        var span = document.getElementById("err-nhapLaiMK");
+        if (rePass !== "" && pass !== rePass) {
+            span.innerHTML = "Mật khẩu gõ lại không đúng!";
+        } else {
+            span.innerHTML = "";
+        }
+    };
+
+    // 6. XỬ LÝ PHÍM ENTER CHUYỂN Ô TIẾP THEO THAY VÌ SUBMIT FORM
+    function ganSuKienEnter() {
+        var inputs = document.querySelectorAll("#frmDangKy input[type='text'], #frmDangKy input[type='password']");
+        inputs.forEach(function(input, index) {
+            input.onkeydown = function(e) {
+                var evt = e || window.event;
+                if (evt.keyCode === 13) { // 13 là mã phím Enter
+                    if (evt.preventDefault) evt.preventDefault();
+                    evt.returnValue = false;
+                    // Chuyển focus sang ô input kế tiếp
+                    if (index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                }
+            };
+        });
+    }
+
+    // 7. KIỂM TRA TOÀN BỘ KHI BẤM NÚT "CHẤP NHẬN"
+    function kiemTraVaGui() {
+        var hopLe = true;
+
+        var cacTruong = [
+            { id: "hoTen", msg: "Chưa nhập họ tên" },
+            { id: "ngaySinh", msg: "Chưa nhập ngày sinh" },
+            { id: "email", msg: "Chưa nhập email" },
+            { id: "tenSuDung", msg: "Chưa nhập tên sử dụng" },
+            { id: "matKhau", msg: "Chưa nhập mật khẩu" },
+            { id: "nhapLaiMK", msg: "Chưa nhập lại mật khẩu" }
+        ];
+
+        for (var i = 0; i < cacTruong.length; i++) {
+            var el = document.getElementById(cacTruong[i].id);
+            var span = document.getElementById("err-" + cacTruong[i].id);
+            var val = el.value.trim();
+
+            if (val === "" || (cacTruong[i].id === "ngaySinh" && val === "nn/tt/nnnn")) {
+                span.innerHTML = cacTruong[i].msg;
+                hopLe = false;
+            } else {
+                if (span.innerHTML === cacTruong[i].msg) {
+                    span.innerHTML = "";
+                }
+            }
+        }
+
+        var errEmail = document.getElementById("err-email").innerHTML;
+        var errPass = document.getElementById("err-nhapLaiMK").innerHTML;
+
+        if (hopLe && errEmail === "" && errPass === "") {
+            alert("Đăng ký thành công!\nSinh viên: Phạm Tiến Đạt (AT200311)");
+        } else {
+            alert("Vui lòng kiểm tra lại thông tin trên form!");
+        }
+    }
+</script>
+
+</body>
+</html>

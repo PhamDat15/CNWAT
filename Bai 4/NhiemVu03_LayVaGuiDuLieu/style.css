@@ -1,0 +1,266 @@
+/* style.css - Nhiệm vụ 3: Lấy và gửi dữ liệu */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.wrapper {
+    width: 960px;
+    margin: 0 auto;
+    border: 1px solid #000;
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+header {
+    display: flex;
+    border-bottom: 1px solid #000;
+}
+
+.student-info {
+    width: 250px;
+    padding: 15px;
+    border-right: 1px solid #000;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.student-info img {
+    margin-top: 6px;
+    border: 1px solid #ddd;
+    display: block;
+}
+
+.banner {
+    flex: 1;
+    background-color: #ffe4e1;
+    overflow: hidden;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Container */
+.container {
+    display: flex;
+    min-height: 450px;
+}
+
+/* Sidebar Menu */
+.sidebar {
+    width: 250px;
+    border-right: 1px solid #000;
+    padding: 15px;
+    background-color: #ffffff;
+}
+
+.sidebar ul {
+    list-style: none;
+    font-size: 13px;
+}
+
+.sidebar li {
+    margin-bottom: 6px;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 4px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+}
+
+.sidebar a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* Main Area */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sub Navigation Menu */
+.menu {
+    background-color: #1e293b;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #000;
+}
+
+.menu a {
+    display: block;
+    color: #f8fafc;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    border-right: 1px solid #334155;
+}
+
+.menu a:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+}
+
+.menu a.active {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
+/* Content Area */
+.content {
+    padding: 20px;
+    flex: 1;
+    background-color: #fafafa;
+}
+
+/* Form controls */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    padding: 6px 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button, input[type="submit"], input[type="reset"], input[type="button"] {
+    padding: 6px 16px;
+    border-radius: 4px;
+    border: 1px solid #94a3b8;
+    background: #e2e8f0;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+button[type="submit"], input[type="submit"] {
+    background-color: #2563eb;
+    color: white;
+    border-color: #1d4ed8;
+}
+
+/* Table results */
+.result-table {
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+}
+
+.result-table td {
+    padding: 8px 14px;
+    border: 1px solid #94a3b8;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Form Bảng điểm (Calculate2) */
+.form-container {
+    max-width: 420px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.form-group {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    width: 110px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #374151;
+}
+
+.form-group input {
+    flex: 1;
+}
+
+.error {
+    color: #dc2626;
+    background: #fee2e2;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+/* Matrix Styling */
+.matrix-container {
+    display: flex;
+    gap: 30px;
+    margin: 15px 0;
+}
+
+.matrix-input table {
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+
+.matrix-input td {
+    padding: 3px;
+}
+
+.matrix-input input {
+    width: 50px;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+.matrix-display {
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.8;
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Footer bảng màu */
+footer {
+    border-top: 1px solid #000;
+}
+
+.color-grid {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.color-grid td {
+    height: 30px;
+    border: 1px solid #fff;
+}

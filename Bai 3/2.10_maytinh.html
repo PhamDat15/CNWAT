@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.10 - Máy Tính Điện Tử | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho Máy Tính Bỏ Túi theo Mục 7.10 */
+        .calc-wrapper {
+            background-color: #f1f5f9;
+            border: 2px solid #94a3b8;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 320px;
+            margin: 10px auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .calc-screen {
+            width: 100%;
+            height: 50px;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 24px;
+            text-align: right;
+            padding: 5px 12px;
+            margin-bottom: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            color: #0f172a;
+            outline: none;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .calc-btn {
+            height: 48px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background-color: #ffffff;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .calc-btn:hover {
+            background-color: #e2e8f0;
+        }
+
+        .calc-btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-op {
+            background-color: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .btn-op:hover {
+            background-color: #bae6fd;
+        }
+
+        .btn-clear {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .btn-clear:hover {
+            background-color: #fecaca;
+        }
+
+        .btn-equal {
+            background-color: #22c55e;
+            color: #ffffff;
+            grid-column: span 1;
+        }
+
+        .btn-equal:hover {
+            background-color: #16a34a;
+        }
+
+        .btn-zero {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>MÁY TÍNH ĐIỆN TỬ BỎ TÚI</h1>
+        <p>Mục 7.10: Mô phỏng đầy đủ các phép toán +, -, *, /, %, +/-, C, CE</p>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html" class="active">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">MỤC 7.10: MÁY TÍNH ĐIỆN TỬ</h2>
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">
+            * Bảng tính điện tử mô phỏng theo đề bài: hỗ trợ đầy đủ các phép toán số học cơ bản (+, -, *, /), chia lấy dư (%), đổi dấu (+/-) và các nút xóa (C, CE).
+        </p>
+
+        <div class="calc-wrapper">
+            <!-- Màn hình hiển thị kết quả -->
+            <input type="text" id="display" class="calc-screen" value="0" readonly>
+
+            <!-- Lưới bàn phím tính toán -->
+            <div class="calc-grid">
+                <button class="calc-btn btn-clear" onclick="clearAll()">C</button>
+                <button class="calc-btn btn-clear" onclick="clearEntry()">CE</button>
+                <button class="calc-btn btn-op" onclick="toggleSign()">+/-</button>
+                <button class="calc-btn btn-op" onclick="chooseOperator('%')">%</button>
+
+                <button class="calc-btn" onclick="appendNumber('7')">7</button>
+                <button class="calc-btn" onclick="appendNumber('8')">8</button>
+                <button class="calc-btn" onclick="appendNumber('9')">9</button>
+                <button class="calc-btn btn-op" onclick="chooseOperator('/')">/</button>
+
+                <button class="calc-btn" onclick="appendNumber('4')">4</button>
+                <button class="calc-btn" onclick="appendNumber('5')">5</button>
+                <button class="calc-btn" onclick="appendNumber('6')">6</button>
+                <button class="calc-btn btn-op" onclick="chooseOperator('*')">*</button>
+
+                <button class="calc-btn" onclick="appendNumber('1')">1</button>
+                <button class="calc-btn" onclick="appendNumber('2')">2</button>
+                <button class="calc-btn" onclick="appendNumber('3')">3</button>
+                <button class="calc-btn btn-op" onclick="chooseOperator('-')">-</button>
+
+                <button class="calc-btn btn-zero" onclick="appendNumber('0')">0</button>
+                <button class="calc-btn" onclick="appendDecimal()">.</button>
+                <button class="calc-btn btn-op" onclick="chooseOperator('+')">+</button>
+
+                <!-- Dòng kết quả = -->
+                <button class="calc-btn btn-equal" style="grid-column: span 4; margin-top: 5px;" onclick="calculate()">=</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+    </div>
+</div>
+
+<script>
+    /* =========================================================================
+       JAVASCRIPT XỬ LÝ MÁY TÍNH BỎ TÚI (MỤC 7.10)
+       Sinh viên thực hiện: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+       ========================================================================= */
+
+    var currentVal = "0";      // Giá trị số đang hiển thị
+    var previousVal = "";     // Giá trị số thứ nhất trước khi bấm phép toán
+    var operation = null;     // Phép toán được chọn (+, -, *, /, %)
+    var resetScreen = false;  // Trạng thái xóa màn hình khi nhập số mới
+
+    var displayEl = document.getElementById("display");
+
+    // 1. Hàm nhập chữ số (0 - 9)
+    function appendNumber(num) {
+        if (currentVal === "0" || resetScreen) {
+            currentVal = num;
+            resetScreen = false;
+        } else {
+            currentVal += num;
+        }
+        updateDisplay();
+    }
+
+    // 2. Hàm nhập dấu chấm thập phân
+    function appendDecimal() {
+        if (resetScreen) {
+            currentVal = "0.";
+            resetScreen = false;
+        } else if (!currentVal.includes(".")) {
+            currentVal += ".";
+        }
+        updateDisplay();
+    }
+
+    // 3. Hàm đảo dấu số (+/-)
+    function toggleSign() {
+        if (currentVal !== "0") {
+            if (currentVal.startsWith("-")) {
+                currentVal = currentVal.substring(1);
+            } else {
+                currentVal = "-" + currentVal;
+            }
+            updateDisplay();
+        }
+    }
+
+    // 4. Hàm chọn phép tính (+, -, *, /, %)
+    function chooseOperator(op) {
+        if (operation !== null) {
+            calculate();
+        }
+        previousVal = currentVal;
+        operation = op;
+        resetScreen = true;
+    }
+
+    // 5. Hàm thực hiện tính toán kết quả (=)
+    function calculate() {
+        if (operation === null || resetScreen) return;
+
+        var a = parseFloat(previousVal);
+        var b = parseFloat(currentVal);
+        var res = 0;
+
+        switch (operation) {
+            case "+": res = a + b; break;
+            case "-": res = a - b; break;
+            case "*": res = a * b; break;
+            case "/": 
+                if (b === 0) {
+                    alert("Lỗi: Không thể chia cho số 0!");
+                    clearAll();
+                    return;
+                }
+                res = a / b; 
+                break;
+            case "%": res = a % b; break;
+            default: return;
+        }
+
+        // Làm tròn số thập phân tránh lỗi dấu phẩy động
+        res = Math.round(res * 100000000) / 100000000;
+        currentVal = res.toString();
+        operation = null;
+        previousVal = "";
+        resetScreen = true;
+        updateDisplay();
+    }
+
+    // 6. Hàm xóa toàn bộ (Clear All - C)
+    function clearAll() {
+        currentVal = "0";
+        previousVal = "";
+        operation = null;
+        resetScreen = false;
+        updateDisplay();
+    }
+
+    // 7. Hàm xóa giá trị hiện tại (Clear Entry - CE)
+    function clearEntry() {
+        currentVal = "0";
+        updateDisplay();
+    }
+
+    // Cập nhật giá trị lên màn hình máy tính
+    function updateDisplay() {
+        displayEl.value = currentVal;
+    }
+</script>
+
+</body>
+</html>

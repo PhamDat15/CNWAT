@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.9 - Cây Thư Mục | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho Cây Thư Mục theo Mục 7.9 */
+        .tree-wrapper {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 20px 30px;
+            max-width: 500px;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .tree, .tree ul {
+            list-style: none;
+            padding-left: 24px;
+            margin: 0;
+        }
+
+        .tree li {
+            margin: 6px 0;
+            position: relative;
+            line-height: 22px;
+        }
+
+        /* Nút dấu +/- */
+        .toggle-btn {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            line-height: 14px;
+            text-align: center;
+            border: 1px solid #64748b;
+            background: #f8fafc;
+            color: #0f172a;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 2px;
+            margin-right: 6px;
+            user-select: none;
+        }
+
+        .toggle-btn:hover {
+            background: #e2e8f0;
+        }
+
+        /* Icon thư mục và tên thư mục */
+        .folder-node {
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .folder-node:hover {
+            background-color: #e0f2fe;
+        }
+
+        /* Nút khi được chọn */
+        .folder-node.selected-node {
+            background-color: #0284c7 !important;
+            color: #ffffff !important;
+            font-weight: bold;
+        }
+
+        /* Ẩn các nhánh con khi đóng */
+        .tree ul.collapsed {
+            display: none;
+        }
+
+        .folder-icon {
+            margin-right: 4px;
+        }
+
+        #selected-info {
+            margin-top: 15px;
+            padding: 10px 14px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 4px;
+            color: #166534;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>MÔ PHỎNG CÂY THƯ MỤC (TREE VIEW)</h1>
+        <p>Mục 7.9: Kích chuột vào dấu +/- để mở/đóng, kích vào nút để chọn</p>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html" class="active">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">MỤC 7.9: CÂY THƯ MỤC ĐA CẤP</h2>
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">
+            * Bấm vào nút <strong>[+]</strong> hoặc <strong>[-]</strong> để mở rộng hoặc thu gọn cây thư mục. Bấm trực tiếp vào tên thư mục để chọn.
+        </p>
+
+        <div class="tree-wrapper">
+            <ul class="tree" style="padding-left: 0;">
+                <li>
+                    <span class="toggle-btn" onclick="toggleTree(this)">-</span>
+                    <span class="folder-node selected-node" onclick="selectNode(this)"><span class="folder-icon">📂</span>Root</span>
+                    <ul>
+                        <li>
+                            <span class="folder-node" style="margin-left: 22px;" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 1</span>
+                        </li>
+                        <li>
+                            <span class="toggle-btn" onclick="toggleTree(this)">-</span>
+                            <span class="folder-node" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 2</span>
+                            <ul>
+                                <li>
+                                    <span class="folder-node" style="margin-left: 22px;" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 2-1</span>
+                                </li>
+                                <li>
+                                    <span class="toggle-btn" onclick="toggleTree(this)">-</span>
+                                    <span class="folder-node" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 2-2</span>
+                                    <ul>
+                                        <li>
+                                            <span class="folder-node" style="margin-left: 22px;" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 2-2-1</span>
+                                        </li>
+                                        <li>
+                                            <span class="folder-node" style="margin-left: 22px;" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 2-2-2</span>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="folder-node" style="margin-left: 22px;" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 2-3</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="folder-node" style="margin-left: 22px;" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 3</span>
+                        </li>
+                        <li>
+                            <span class="toggle-btn" onclick="toggleTree(this)">+</span>
+                            <span class="folder-node" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 4</span>
+                            <ul class="collapsed">
+                                <li>
+                                    <span class="folder-node" style="margin-left: 22px;" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 4-1 (Subfile)</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="folder-node" style="margin-left: 22px;" onclick="selectNode(this)"><span class="folder-icon">📁</span>Folder 5</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div id="selected-info">
+                Thư mục đang chọn: <strong>Root</strong> (Người thao tác: Phạm Tiến Đạt)
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+    </div>
+</div>
+
+<script>
+    /* =========================================================================
+       JAVASCRIPT XỬ LÝ CÂY THƯ MỤC (MỤC 7.9)
+       Sinh viên: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+       ========================================================================= */
+
+    /**
+     * Hàm mở hoặc đóng nhánh cây thư mục khi bấm dấu +/-
+     * @param {HTMLElement} btn - Nút dấu [+] hoặc [-]
+     */
+    function toggleTree(btn) {
+        // Tìm thẻ <ul> con cùng cấp bên dưới thẻ <li> cha
+        var parentLi = btn.parentElement;
+        var subUl = parentLi.querySelector("ul");
+
+        if (subUl) {
+            if (subUl.classList.contains("collapsed")) {
+                // Đang đóng -> Mở ra
+                subUl.classList.remove("collapsed");
+                btn.textContent = "-";
+            } else {
+                // Đang mở -> Thu gọn lại
+                subUl.classList.add("collapsed");
+                btn.textContent = "+";
+            }
+        }
+    }
+
+    /**
+     * Hàm chọn nút thư mục khi người dùng click
+     * @param {HTMLElement} node - Thẻ span đại diện cho folder được bấm
+     */
+    function selectNode(node) {
+        // Xóa class selected-node ở tất cả các nút khác
+        var allNodes = document.querySelectorAll(".folder-node");
+        allNodes.forEach(function(n) {
+            n.classList.remove("selected-node");
+        });
+
+        // Thêm class được chọn cho nút hiện tại
+        node.classList.add("selected-node");
+
+        // Cập nhật thông báo
+        var folderName = node.textContent.trim().replace("📁", "").replace("📂", "");
+        document.getElementById("selected-info").innerHTML = 
+            "Thư mục đang chọn: <strong>" + folderName + "</strong> (Người thao tác: Phạm Tiến Đạt - AT200311)";
+    }
+</script>
+
+</body>
+</html>

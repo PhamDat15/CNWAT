@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.11 - Hoạt Cảnh Jump | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho Hoạt Cảnh Người Que theo Mục 7.11 */
+        .animation-container {
+            text-align: center;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 25px;
+            max-width: 550px;
+            margin: 15px auto;
+        }
+
+        .btn-control-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-anim {
+            padding: 8px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 8px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-jump {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
+        .btn-jump:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-stop {
+            background-color: #dc2626;
+            color: #ffffff;
+        }
+
+        .btn-stop:hover {
+            background-color: #b91c1c;
+        }
+
+        /* Khung hiển thị người que */
+        .canvas-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 280px;
+            background: #fafafa;
+            border: 1px dashed #cbd5e1;
+            border-radius: 6px;
+        }
+
+        svg.stickman {
+            width: 200px;
+            height: 250px;
+        }
+
+        .stickman line, .stickman circle {
+            stroke: #1e293b;
+            stroke-width: 4;
+            stroke-linecap: round;
+            fill: none;
+        }
+
+        .status-badge {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>HOẠT CẢNH NGƯỜI QUE NHẢY (STICKMAN JUMP)</h1>
+        <p>Mục 7.11: Hoạt cảnh tuần tự qua lại (Ping-Pong Animation) với Jump & Stop</p>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html" class="active">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">MỤC 7.11: HOẠT CẢNH JUMP & STOP</h2>
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">
+            * Yêu cầu: Khi nhấn vào <strong>Jump</strong>, các tư thế vẽ người que sẽ thay đổi tuần tự từ trái sang phải rồi ngược lại. Nhấn <strong>Stop</strong> để dừng hoạt cảnh.
+        </p>
+
+        <div class="animation-container">
+            <!-- Nhóm nút điều khiển -->
+            <div class="btn-control-group">
+                <button class="btn-anim btn-jump" onclick="startJump()">Jump</button>
+                <button class="btn-anim btn-stop" onclick="stopJump()">Stop</button>
+            </div>
+
+            <!-- Khung vẽ người que bằng SVG -->
+            <div class="canvas-box" id="stickmanBox">
+                <!-- SVG động được cập nhật qua JS -->
+            </div>
+
+            <div class="status-badge" id="animStatus">Trạng thái: Đang đứng yên (Sẵn sàng bấm Jump)</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+    </div>
+</div>
+
+<script>
+    /* =========================================================================
+       JAVASCRIPT XỬ LÝ HOẠT CẢNH NGƯỜI QUE NHẢY (MỤC 7.11)
+       Sinh viên: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+       ========================================================================= */
+
+    // 4 trạng thái chuyển động của người que (từ trái qua phải theo đề bài)
+    const frames = [
+        // Frame 0: Đứng thẳng, tay xuôi
+        `<svg class="stickman" viewBox="0 0 100 150">
+            <circle cx="50" cy="25" r="15" />
+            <line x1="50" y1="40" x2="50" y2="95" />
+            <line x1="50" y1="55" x2="25" y2="85" />
+            <line x1="50" y1="55" x2="75" y2="85" />
+            <line x1="50" y1="95" x2="35" y2="140" />
+            <line x1="50" y1="95" x2="65" y2="140" />
+        </svg>`,
+
+        // Frame 1: Hơi co chân, tay đưa ngang chuẩn bị bật nhảy
+        `<svg class="stickman" viewBox="0 0 100 150">
+            <circle cx="50" cy="30" r="15" />
+            <line x1="50" y1="45" x2="50" y2="95" />
+            <line x1="50" y1="60" x2="20" y2="70" />
+            <line x1="50" y1="60" x2="80" y2="70" />
+            <line x1="50" y1="95" x2="30" y2="135" />
+            <line x1="50" y1="95" x2="70" y2="135" />
+        </svg>`,
+
+        // Frame 2: Bật nhảy lên cao, tay dang rộng góc chéo, chân dang rộng
+        `<svg class="stickman" viewBox="0 0 100 150">
+            <circle cx="50" cy="20" r="15" />
+            <line x1="50" y1="35" x2="50" y2="80" />
+            <line x1="50" y1="50" x2="10" y2="35" />
+            <line x1="50" y1="50" x2="90" y2="35" />
+            <line x1="50" y1="80" x2="15" y2="120" />
+            <line x1="50" y1="80" x2="85" y2="120" />
+        </svg>`,
+
+        // Frame 3: Tiếp đất, tay giang ngang thăng bằng
+        `<svg class="stickman" viewBox="0 0 100 150">
+            <circle cx="50" cy="28" r="15" />
+            <line x1="50" y1="43" x2="50" y2="92" />
+            <line x1="50" y1="58" x2="15" y2="58" />
+            <line x1="50" y1="58" x2="85" y2="58" />
+            <line x1="50" y1="92" x2="25" y2="138" />
+            <line x1="50" y1="92" x2="75" y2="138" />
+        </svg>`
+    ];
+
+    let currentFrame = 0;
+    let direction = 1;     // 1: Tiến (trái sang phải), -1: Lùi (phải sang trái)
+    let timerId = null;    // Lưu trữ setInterval
+
+    const box = document.getElementById("stickmanBox");
+    const statusEl = document.getElementById("animStatus");
+
+    // Hiển thị khung hình ban đầu
+    box.innerHTML = frames[0];
+
+    /**
+     * Bắt đầu hoạt cảnh khi bấm nút Jump
+     */
+    function startJump() {
+        if (timerId !== null) return; // Đang chạy thì không tạo thêm interval
+
+        statusEl.innerText = "Trạng thái: Đang nhảy tuần tự (Jump Active)...";
+        statusEl.style.color = "#2563eb";
+
+        timerId = setInterval(function() {
+            // Cập nhật vị trí frame kế tiếp
+            currentFrame += direction;
+
+            // Nếu chạm giới hạn bên phải -> Đảo hướng sang trái
+            if (currentFrame >= frames.length - 1) {
+                currentFrame = frames.length - 1;
+                direction = -1;
+            }
+            // Nếu chạm giới hạn bên trái -> Đảo hướng sang phải
+            else if (currentFrame <= 0) {
+                currentFrame = 0;
+                direction = 1;
+            }
+
+            // Vẽ lại khung hình
+            box.innerHTML = frames[currentFrame];
+        }, 180); // Chuyển đổi mỗi 180ms
+    }
+
+    /**
+     * Dừng hoạt cảnh khi bấm nút Stop
+     */
+    function stopJump() {
+        if (timerId !== null) {
+            clearInterval(timerId);
+            timerId = null;
+            statusEl.innerText = "Trạng thái: Đã dừng hoạt cảnh (Stop).";
+            statusEl.style.color = "#dc2626";
+        }
+    }
+</script>
+
+</body>
+</html>

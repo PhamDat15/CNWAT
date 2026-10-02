@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1.2 - Giới Thiệu Bản Thân | Phạm Tiến Đạt</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Style riêng cho trang giới thiệu bản thân bên trong #center */
+        .info-container {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .info-top-banner {
+            background: linear-gradient(135deg, #4a90e2, #0056b3);
+            color: white;
+            padding: 18px 25px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .info-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            border-bottom: 1px solid #eee;
+            background-color: #fafbfc;
+        }
+
+        .info-logo h2 {
+            margin: 0;
+            color: #4a90e2;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .info-logo span {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .info-nav-links a {
+            text-decoration: none;
+            color: #555;
+            margin-left: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .info-nav-links a:hover {
+            color: #4a90e2;
+        }
+
+        .info-main-content {
+            display: flex;
+            padding: 25px;
+            gap: 25px;
+        }
+
+        .info-sidebar {
+            width: 35%;
+            padding-right: 20px;
+            border-right: 1px dashed #ccc;
+        }
+
+        .info-sidebar h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 5px;
+        }
+
+        .skills-list {
+            list-style-type: square;
+            padding-left: 20px;
+            color: #555;
+            line-height: 2;
+            font-size: 14px;
+        }
+
+        .btn-contact {
+            background-color: #0088cc;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            width: 100%;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-contact:hover {
+            background-color: #006699;
+        }
+
+        .info-profile {
+            width: 65%;
+        }
+
+        .info-profile h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .profile-header {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .avatar-frame {
+            border: 2px solid #4a90e2;
+            padding: 4px;
+            border-radius: 6px;
+            width: 130px;
+            height: 130px;
+            flex-shrink: 0;
+            background: #fff;
+        }
+
+        .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+            line-height: 1.9;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .info-list li strong {
+            color: #111;
+        }
+
+        .bio-text {
+            font-size: 14px;
+            color: #555;
+            margin-top: 15px;
+            line-height: 1.7;
+            background-color: #f9fbfd;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #4a90e2;
+        }
+
+        .info-footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- HEADER / TOP -->
+        <div id="top">
+            <div id="logo">
+                <div class="avatar-box">
+                    <img src="images/avatar.svg" alt="Avatar SV">
+                </div>
+                <div class="student-meta">
+                    <h4>Phạm Tiến Đạt</h4>
+                    <p><strong>MSSV:</strong> AT200311</p>
+                    <p><strong>STT:</strong> 04</p>
+                </div>
+            </div>
+            <div id="banner">
+                <h2>Học Viện Kỹ Thuật Mật Mã</h2>
+                <p>Học phần: Công Nghệ Web An Toàn - Bài tập HTML &amp; CSS</p>
+            </div>
+        </div>
+
+        <!-- BODY / MIDDLE -->
+        <div id="middle">
+            <!-- Cột trái: Menu điều hướng -->
+            <div id="left">
+                <h3>Danh mục bài tập</h3>
+                <ul class="menu-list">
+                    <li><a href="example.html">1.1. Ví dụ mẫu</a></li>
+                    <li><a href="information.html" class="active">1.2. Giới thiệu bản thân</a></li>
+                    <li><a href="Score.html">1.3. Bảng điểm cá nhân</a></li>
+                    <li><a href="Curriculum_vitae.html">1.4. Lý lịch cá nhân (CV)</a></li>
+                    <li><a href="tintuc.html">1.7.5. Trang tin tức</a></li>
+                </ul>
+            </div>
+
+            <!-- Cột phải: Nội dung chính -->
+            <div id="center">
+                <div class="info-container">
+                    <div class="info-top-banner">
+                        TRANG GIỚI THIỆU THÔNG TIN CÁ NHÂN
+                    </div>
+                    
+                    <div class="info-navbar">
+                        <div class="info-logo">
+                            <h2>Phạm Tiến Đạt</h2>
+                            <span>Information &amp; Portfolio</span>
+                        </div>
+                        <div class="info-nav-links">
+                            <a href="#">TRANG CHỦ</a>
+                            <a href="#">GIỚI THIỆU</a>
+                            <a href="#">CÔNG VIỆC</a>
+                            <a href="#">MẠNG XÃ HỘI</a>
+                            <a href="#">LIÊN HỆ</a>
+                        </div>
+                    </div>
+
+                    <div class="info-main-content">
+                        <!-- Cột trái: Kỹ năng -->
+                        <div class="info-sidebar">
+                            <h3>Những Thứ Tớ Giỏi...</h3>
+                            <ul class="skills-list">
+                                <li>Phân tích bảo mật Web &amp; Pentest</li>
+                                <li>HTML5 &amp; CSS3 Layout</li>
+                                <li>Lập trình Python &amp; JavaScript</li>
+                                <li>Phân tích mã độc &amp; Reversing</li>
+                                <li>Làm việc nhóm &amp; Giải quyết vấn đề</li>
+                            </ul>
+                            <button class="btn-contact" onclick="alert('Liên hệ qua email: tiendat.at200311@actvn.edu.vn')">LIÊN HỆ VỚI TỚ</button>
+                        </div>
+
+                        <!-- Cột phải: Thông tin chi tiết -->
+                        <div class="info-profile">
+                            <h2>Chào! Tớ là Tiến Đạt 👋</h2>
+                            <div class="profile-header">
+                                <div class="avatar-frame">
+                                    <img src="images/avatar.svg" alt="Ảnh chân dung Phạm Tiến Đạt">
+                                </div>
+                                <ul class="info-list">
+                                    <li>🎓 Tớ hiện đang là sinh viên trường <strong>Học viện Kỹ thuật Mật mã</strong></li>
+                                    <li>👤 <strong>Họ và tên:</strong> Phạm Tiến Đạt</li>
+                                    <li>🆔 <strong>Mã sinh viên:</strong> AT200311</li>
+                                    <li>🔢 <strong>Số thứ tự:</strong> 04</li>
+                                    <li>🎂 <strong>Ngày sinh:</strong> 04 - 04 - 2002</li>
+                                    <li>📍 <strong>Quê quán:</strong> Hà Nội</li>
+                                    <li>🏫 <strong>Khoa/Lớp:</strong> An Toàn Thông Tin - Khóa AT20</li>
+                                </ul>
+                            </div>
+                            <div class="bio-text">
+                                <p>Mình là một bạn trẻ đam mê Công nghệ thông tin và Bảo mật Web, hăng say nghiên cứu các cơ chế bảo mật và phát triển website an toàn (mặc dù mới bắt đầu chuyên sâu về HTML, CSS, JS... nhưng mình luôn nỗ lực hết mình) !!</p>
+                                <p style="margin-top: 8px;"><strong>• Đặc điểm nhận dạng:</strong> Vui vẻ, hòa đồng, ham học hỏi và luôn sẵn sàng hỗ trợ bạn bè.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-footer">
+                        Thông tin bản quyền &copy; 2026 bởi Phạm Tiến Đạt - Mã sinh viên: AT200311
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER / BOTTOM -->
+        <div id="bottom">
+            <p>Thông tin bản quyền &copy; 2026 bởi <strong>Phạm Tiến Đạt</strong> - MSSV: <strong>AT200311</strong> - STT: <strong>04</strong></p>
+            <p>Khoa An Toàn Thông Tin - Học Viện Kỹ Thuật Mật Mã</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.7 - Thực Đơn | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho Thực Đơn theo Mục 7.7 */
+        .menu-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 25px;
+            margin-top: 15px;
+        }
+
+        .menu-list-box {
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 10px;
+            background: #f8fafc;
+        }
+
+        .menu-list-box ul {
+            list-style: none;
+        }
+
+        .menu-list-box li {
+            padding: 10px 14px;
+            margin-bottom: 6px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        /* Hover: sáng lên */
+        .menu-list-box li:hover {
+            background-color: #d1f0d1; /* Sáng màu xanh nhạt */
+            border-color: #86efac;
+            padding-left: 18px;
+        }
+
+        /* Khi được chọn: đổi màu xanh lá đậm, chữ trắng đậm */
+        .menu-list-box li.selected {
+            background-color: #16a34a !important;
+            color: #ffffff !important;
+            font-weight: bold;
+            border-color: #15803d;
+        }
+
+        /* Khu vực hiển thị tiêu đề bên phải */
+        .display-area {
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 25px;
+            background-color: #ffffff;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #selected-task {
+            color: #15803d;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>HỆ THỐNG MENU ĐIỀU HƯỚNG TÁC VỤ</h1>
+        <p>Mục 7.7: Thực đơn tương tác động - Học viện Kỹ thuật Mật mã</p>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html" class="active">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">MỤC 7.7: THỰC ĐƠN TƯƠNG TÁC</h2>
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">
+            * Rê chuột vào mục thực đơn để làm sáng lên. Kích chuột vào mục nào thì mục đó đổi màu xanh và tiêu đề được hiển thị ở khung bên phải.
+        </p>
+
+        <div class="menu-layout">
+            <!-- Danh sách menu bên trái -->
+            <div class="menu-list-box">
+                <ul class="menu-items">
+                    <li data-title="Quản lý cán bộ (Đăng ký thông tin)">» Quản lý cán bộ (Đăng ký thông tin)</li>
+                    <li data-title="Phân quyền hệ thống">» Phân quyền</li>
+                    <li data-title="Cổng thông tin đào tạo và người học">» Cổng thông tin đào tạo và người học</li>
+                    <li data-title="Quản lý văn bản và hồ sơ công việc">» Quản lý văn bản và hồ sơ công việc</li>
+                    <li data-title="Hành chính công">» Hành chính công</li>
+                    <li data-title="Hệ thống thông tin báo cáo">» Hệ thống thông tin báo cáo</li>
+                </ul>
+            </div>
+
+            <!-- Khung hiển thị tiêu đề bên phải -->
+            <div class="display-area">
+                <h3 id="selected-task">» Vui lòng chọn một tác vụ</h3>
+                <p id="desc-task" style="font-size: 13px; color: #64748b;">(Thông tin chi tiết chức năng sẽ hiển thị tương ứng)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+    </div>
+</div>
+
+<script>
+    /* =========================================================================
+       JAVASCRIPT XỬ LÝ SỰ KIỆN THỰC ĐƠN (MỤC 7.7)
+       Sinh viên: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+       ========================================================================= */
+
+    const menuItems = document.querySelectorAll('.menu-items li');
+    const titleDisplay = document.getElementById('selected-task');
+    const descDisplay = document.getElementById('desc-task');
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            // 1. Xóa class 'selected' khỏi tất cả các mục menu
+            menuItems.forEach(i => i.classList.remove('selected'));
+
+            // 2. Thêm class 'selected' cho mục vừa được click
+            this.classList.add('selected');
+
+            // 3. Lấy dữ liệu thuộc tính data-title và hiển thị sang khung bên phải
+            const title = this.getAttribute('data-title');
+            titleDisplay.textContent = `» ${title}`;
+            descDisplay.textContent = `Tác vụ đang được kích hoạt bởi: Phạm Tiến Đạt (AT200311).`;
+        });
+    });
+</script>
+
+</body>
+</html>

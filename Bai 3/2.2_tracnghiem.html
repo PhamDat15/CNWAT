@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.2 - Thi Trắc Nghiệm | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS riêng cho bài thi trắc nghiệm */
+        .tab-header {
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            gap: 15px;
+        }
+
+        .tab-btn {
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 8px 16px;
+            color: #64748b;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: #1e3c72;
+        }
+
+        /* Nút Tab khi active */
+        .tab-btn.active {
+            color: #1e3c72;
+            border-bottom: 3px solid #1e3c72;
+        }
+
+        /* Ẩn hiện nội dung bài thi trắc nghiệm */
+        .test-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .test-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-block {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 18px;
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #334155;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .options label:hover {
+            background-color: #e2e8f0;
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            padding: 9px 22px;
+            cursor: pointer;
+            background-color: #1e3c72;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover {
+            background-color: #2a5298;
+        }
+
+        .score-box {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>BÀI THI TRẮC NGHIỆM TRỰC TUYẾN</h1>
+        <p>Hệ thống thi trắc nghiệm đa chuyên đề - Công nghệ Web an toàn</p>
+    </div>
+
+    <!-- Sidebar menu -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html" class="active">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">MỤC 7.2: TRANG THI TRẮC NGHIỆM NHIỀU THỂ LOẠI (TABS)</h2>
+
+        <!-- Khối chuyển đổi tab đề thi -->
+        <div class="tab-header">
+            <button class="tab-btn active" onclick="openTest('test1', this)">TEST 1: Web & Khảo sát</button>
+            <button class="tab-btn" onclick="openTest('test2', this)">TEST 2: Toán học & Logic</button>
+        </div>
+
+        <!-- BỘ CÂU HỎI TEST 1 -->
+        <div id="test1" class="test-content active">
+            <h3 style="margin-bottom: 15px; color: #1e3a8a;">Question for TEST 1</h3>
+            <form id="formTest1" onsubmit="return false;">
+                <!-- Câu 1 -->
+                <div class="question-block">
+                    <p class="question-title">Câu 1: Please select your favorite Web language?</p>
+                    <div class="options">
+                        <label><input type="radio" name="lang" value="html"> HTML (Cấu trúc trang web)</label>
+                        <label><input type="radio" name="lang" value="css"> CSS (Định dạng giao diện)</label>
+                        <label><input type="radio" name="lang" value="js"> JavaScript (Hành vi & Tương tác động)</label>
+                    </div>
+                </div>
+
+                <!-- Câu 2 -->
+                <div class="question-block">
+                    <p class="question-title">Câu 2: Please select your age group:</p>
+                    <div class="options">
+                        <label><input type="radio" name="age" value="young"> 0 - 30 (Tuổi trẻ)</label>
+                        <label><input type="radio" name="age" value="middle"> 31 - 60 (Trung niên)</label>
+                        <label><input type="radio" name="age" value="old"> 61 - 100 (Cao tuổi)</label>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-submit" onclick="submitTest1()">Submit Test 1</button>
+                <div id="resTest1" class="score-box"></div>
+            </form>
+        </div>
+
+        <!-- BỘ CÂU HỎI TEST 2 -->
+        <div id="test2" class="test-content">
+            <h3 style="margin-bottom: 15px; color: #1e3a8a;">Question for TEST 2</h3>
+            <form id="formTest2" onsubmit="return false;">
+                <!-- Câu 1 -->
+                <div class="question-block">
+                    <p class="question-title">Câu 1: Phép tính 1 + 1 bằng mấy?</p>
+                    <div class="options">
+                        <label><input type="radio" name="math1" value="1"> 1</label>
+                        <label><input type="radio" name="math1" value="2"> 2 (Đáp án chính xác)</label>
+                        <label><input type="radio" name="math1" value="3"> 3</label>
+                    </div>
+                </div>
+
+                <!-- Câu 2 -->
+                <div class="question-block">
+                    <p class="question-title">Câu 2: Cổng mặc định của giao thức HTTPS là bao nhiêu?</p>
+                    <div class="options">
+                        <label><input type="radio" name="port" value="80"> Port 80</label>
+                        <label><input type="radio" name="port" value="443"> Port 443 (Đáp án chính xác)</label>
+                        <label><input type="radio" name="port" value="8080"> Port 8080</label>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-submit" onclick="submitTest2()">Submit Test 2</button>
+                <div id="resTest2" class="score-box"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+    </div>
+</div>
+
+<script>
+    /* =========================================================================
+       XỬ LÝ JAVASCRIPT CHO BÀI THI TRẮC NGHIỆM (TABS VÀ CHẤM ĐIỂM)
+       Sinh viên: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+       ========================================================================= */
+
+    /**
+     * Hàm chuyển đổi qua lại giữa các bài thi Test 1 và Test 2
+     * @param {string} testName - ID của khối bài thi cần hiển thị (test1, test2)
+     * @param {HTMLElement} btn - Nút button vừa được click
+     */
+    function openTest(testName, btn) {
+        // 1. Ẩn tất cả các khối bài thi (.test-content)
+        var testContents = document.getElementsByClassName("test-content");
+        for (var i = 0; i < testContents.length; i++) {
+            testContents[i].style.display = "none";
+            testContents[i].classList.remove("active");
+        }
+
+        // 2. Xóa trạng thái active ở các nút tab
+        var tabButtons = document.getElementsByClassName("tab-btn");
+        for (var i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove("active");
+        }
+
+        // 3. Kích hoạt hiển thị bài thi được chọn
+        var selectedTest = document.getElementById(testName);
+        if (selectedTest) {
+            selectedTest.style.display = "block";
+            selectedTest.classList.add("active");
+        }
+
+        // 4. Gán class active cho nút tab vừa bấm
+        if (btn) {
+            btn.classList.add("active");
+        }
+    }
+
+    /**
+     * Chấm bài cho Test 1
+     */
+    function submitTest1() {
+        var lang = document.querySelector('input[name="lang"]:checked');
+        var age = document.querySelector('input[name="age"]:checked');
+        var res = document.getElementById("resTest1");
+
+        if (!lang || !age) {
+            alert("Vui lòng trả lời đầy đủ tất cả câu hỏi trước khi nộp bài!");
+            return;
+        }
+
+        res.style.display = "block";
+        res.style.backgroundColor = "#dcfce7";
+        res.style.color = "#166534";
+        res.style.border = "1px solid #86efac";
+        res.innerHTML = " Sinh viên <strong>Phạm Tiến Đạt</strong> đã hoàn thành TEST 1 thành công!<br>" +
+                        "- Ngôn ngữ yêu thích: " + lang.value.toUpperCase() + "<br>" +
+                        "- Độ tuổi: " + age.value;
+    }
+
+    /**
+     * Chấm bài cho Test 2 (Kiểm tra đúng/sai)
+     */
+    function submitTest2() {
+        var math1 = document.querySelector('input[name="math1"]:checked');
+        var port = document.querySelector('input[name="port"]:checked');
+        var res = document.getElementById("resTest2");
+
+        if (!math1 || !port) {
+            alert("Vui lòng trả lời đầy đủ các câu hỏi của Test 2!");
+            return;
+        }
+
+        var score = 0;
+        if (math1.value === "2") score++;
+        if (port.value === "443") score++;
+
+        res.style.display = "block";
+        res.style.backgroundColor = score === 2 ? "#dcfce7" : "#fee2e2";
+        res.style.color = score === 2 ? "#166534" : "#991b1b";
+        res.style.border = "1px solid " + (score === 2 ? "#86efac" : "#fca5a5");
+        res.innerHTML = "Kết quả thi TEST 2 của <strong>Phạm Tiến Đạt (AT200311)</strong>: " + score + "/2 câu đúng (" + (score * 5) + " điểm).";
+    }
+</script>
+
+</body>
+</html>

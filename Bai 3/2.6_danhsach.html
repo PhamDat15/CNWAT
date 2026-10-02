@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.6 - Danh Sách Nhân Sự | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho bảng nhân sự theo chuẩn Mục 7.6 */
+        .table-container {
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        #employeeTable {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        #employeeTable th, #employeeTable td {
+            border: 1px solid #cbd5e1;
+            padding: 9px 12px;
+            text-align: left;
+        }
+
+        #employeeTable thead tr {
+            background-color: #00bcd4; /* Màu xanh ngọc / Cyan như hình */
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        /* Các hàng chẵn tô một màu, hàng lẻ một màu khác */
+        #employeeTable tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        #employeeTable tbody tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+
+        /* Khi người dùng dê chuột đến hàng nào thì hàng đó chuyển màu xanh lá cây */
+        #employeeTable tbody tr:hover {
+            background-color: #4ade80 !important; /* Xanh lá cây tươi */
+            cursor: pointer;
+        }
+
+        /* Khi checkbox được tick thì dòng được tô vàng */
+        #employeeTable tbody tr.selected {
+            background-color: #fde047 !important; /* Màu vàng */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>DANH SÁCH NHÂN SỰ & QUẢN LÝ DÒNG</h1>
+        <p>Mục 7.6: Chọn tất cả, hover đổi màu xanh lá, tick chọn dòng tô màu vàng</p>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html" class="active">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">MỤC 7.6: BẢNG DANH SÁCH NHÂN SỰ</h2>
+
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 12px;">
+            * Thao tác: Kích vào dòng để chọn (dòng tô vàng). Rê chuột vào dòng đổi màu xanh lá. Kích ô trên cùng để chọn/bỏ chọn tất cả.
+        </p>
+
+        <div class="table-container">
+            <table id="employeeTable">
+                <thead>
+                    <tr>
+                        <th style="width: 40px; text-align: center;">
+                            <input type="checkbox" id="selectAll">
+                        </th>
+                        <th>Họ tên</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới tính</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                        <td>Phạm Tiến Đạt (STT 04 - MSSV AT200311)</td>
+                        <td>04/08/2002</td>
+                        <td>Nam</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                        <td>Hoàng Thị Thảo</td>
+                        <td>23/6/1990</td>
+                        <td>Nữ</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                        <td>Ngô Mạng Quân</td>
+                        <td>14/4/1992</td>
+                        <td>Nam</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                        <td>Nguyễn Thanh Tùng</td>
+                        <td>27/9/1991</td>
+                        <td>Nam</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;"><input type="checkbox" class="row-checkbox"></td>
+                        <td>Hoàng Thị Ngân</td>
+                        <td>12/12/1992</td>
+                        <td>Nữ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+    </div>
+</div>
+
+<script>
+    /* =========================================================================
+       JAVASCRIPT XỬ LÝ SỰ KIỆN DANH SÁCH NHÂN SỰ (MỤC 7.6)
+       Sinh viên: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+       ========================================================================= */
+
+    const selectAllCheckbox = document.getElementById('selectAll');
+    const checkboxes = document.querySelectorAll('.row-checkbox');
+    const rows = document.querySelectorAll('#employeeTable tbody tr');
+
+    // 1. Click vào ô tổng ở header để chọn/bỏ chọn tất cả các dòng
+    selectAllCheckbox.addEventListener('change', function () {
+        checkboxes.forEach((cb, index) => {
+            cb.checked = this.checked;
+            updateRowHighlight(rows[index], cb.checked);
+        });
+    });
+
+    // 2. Khi mỗi checkbox con thay đổi, cập nhật màu dòng và trạng thái ô tổng
+    checkboxes.forEach((checkbox, index) => {
+        checkbox.addEventListener('change', function () {
+            updateRowHighlight(rows[index], this.checked);
+            updateSelectAll();
+        });
+    });
+
+    // 3. Hàm cập nhật trạng thái checkbox tổng (Select All)
+    function updateSelectAll() {
+        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+        selectAllCheckbox.checked = allChecked;
+    }
+
+    // 4. Hàm cập nhật màu nền dòng được chọn (thêm/xóa class .selected màu vàng)
+    function updateRowHighlight(row, isChecked) {
+        if (isChecked) {
+            row.classList.add('selected');
+        } else {
+            row.classList.remove('selected');
+        }
+    }
+
+    // 5. Click vào bất kỳ điểm nào trên dòng (trừ thẻ checkbox) tương đương click vào checkbox
+    rows.forEach((row, index) => {
+        row.addEventListener('click', function (e) {
+            // Tránh xung đột nếu click trực tiếp vào ô input checkbox
+            if (e.target.type === 'checkbox') return;
+            checkboxes[index].checked = !checkboxes[index].checked;
+            updateRowHighlight(row, checkboxes[index].checked);
+            updateSelectAll();
+        });
+    });
+</script>
+
+</body>
+</html>

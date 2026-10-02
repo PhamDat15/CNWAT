@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học phần CNWAT - Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS riêng cho trang chủ */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .task-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f8fafc;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .task-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: #ffffff;
+            border-color: #3b82f6;
+        }
+        .task-card h4 {
+            color: #1e40af;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+        .task-card p {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .badge {
+            display: inline-block;
+            align-self: flex-start;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 10px;
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 1. Góc trên trái: Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- 2. Góc trên phải: Banner tùy chọn -->
+    <div class="banner">
+        <h1>HỌC VIỆN KỸ THUẬT MẬT MÃ</h1>
+        <p>BÀI TẬP HTML, CSS VÀ JAVASCRIPT - CÔNG NGHỆ WEB AN TOÀN</p>
+    </div>
+
+    <!-- 3. Cột trái: Sidebar điều hướng -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html" class="active">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- 4. Vùng nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">BÁO CÁO KẾT QUẢ THỰC HÀNH</h2>
+        <p>Chào mừng đến với cổng báo cáo bài tập thực hành môn <strong>Công nghệ Web an toàn</strong> của sinh viên <strong>Phạm Tiến Đạt (STT: 04 - MSSV: AT200311)</strong>.</p>
+        <p style="margin-top: 6px; font-size: 13px; color: #555;">Tất cả các bài tập đều được viết bằng HTML5, CSS3 và JavaScript thuần, kèm theo chú thích giải thích chi tiết chức năng phục vụ kiểm tra/vấn đáp.</p>
+
+        <div class="dashboard-grid">
+            <a href="2.1_viju.html" class="task-card">
+                <div>
+                    <h4>Mục 7.1: 14 Ví dụ JS</h4>
+                    <p>Tổng hợp 14 bài tập ví dụ trong slide: biến, if, switch, date, string, array, timer,...</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.2_tracnghiem.html" class="task-card">
+                <div>
+                    <h4>Mục 7.2: Thi trắc nghiệm</h4>
+                    <p>Thi trắc nghiệm giao diện Tabs chuyển Test 1, Test 2 bằng JS và radio button.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.3_lop.html" class="task-card">
+                <div>
+                    <h4>Mục 7.3: Form LOP</h4>
+                    <p>Form nhập liệu và kiểm tra ràng buộc: MALOP, TENLOP, KHOAHOC, GVCN.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.4_hoso.html" class="task-card">
+                <div>
+                    <h4>Mục 7.4: Form HOSO</h4>
+                    <p>Kiểm tra dữ liệu sinh viên, điểm Toán Lý Hóa và tự động tính tổng điểm.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.5_dangky.html" class="task-card">
+                <div>
+                    <h4>Mục 7.5: Form Đăng ký</h4>
+                    <p>Chuẩn hóa họ tên, masked ngày sinh, phím Enter chuyển ô, regex email.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.6_danhsach.html" class="task-card">
+                <div>
+                    <h4>Mục 7.6: Danh sách</h4>
+                    <p>Chọn dòng, hover xanh lá, tick checkbox dòng chuyển vàng, chọn tất cả.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.7_thucdon.html" class="task-card">
+                <div>
+                    <h4>Mục 7.7: Thực đơn</h4>
+                    <p>Menu đa mục, hover sáng, click chọn đổi màu xanh và hiển thị tiêu đề bên phải.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.8_tab.html" class="task-card">
+                <div>
+                    <h4>Mục 7.8: Tabs</h4>
+                    <p>Chuyển đổi các Tab ngang linh hoạt, tab chọn màu cyan sáng đẹp.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.9_cay.html" class="task-card">
+                <div>
+                    <h4>Mục 7.9: Cây thư mục</h4>
+                    <p>Cây đa cấp Root, Folder có nút +/- mở đóng và chọn thư mục.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.10_maytinh.html" class="task-card">
+                <div>
+                    <h4>Mục 7.10: Máy tính</h4>
+                    <p>Mô phỏng máy tính bỏ túi thực hiện các phép toán cơ bản +, -, *, /, %, +/-.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.11_hoatcanh.html" class="task-card">
+                <div>
+                    <h4>Mục 7.11: Hoạt cảnh</h4>
+                    <p>Hoạt cảnh người que nhảy (Stickman Jump) với nút Jump và Stop.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+
+            <a href="2.12_sapxep_timkiem.html" class="task-card">
+                <div>
+                    <h4>Mục 7.12: Sắp xếp & Tìm</h4>
+                    <p>Sắp xếp tăng/giảm có icon mũi tên và tìm kiếm trực tiếp có highlight vàng.</p>
+                </div>
+                <span class="badge">Đã hoàn thành</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 5. Chân trang bản quyền -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311 | Học viện Kỹ thuật Mật mã
+    </div>
+</div>
+
+</body>
+</html>

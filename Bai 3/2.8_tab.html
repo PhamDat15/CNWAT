@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.8 - Tab Chuyển Đổi | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho hệ thống Tabs theo Mục 7.8 */
+        .tab-container {
+            display: flex;
+            border-bottom: 2px solid #cbd5e1;
+            margin-bottom: 15px;
+            gap: 4px;
+        }
+
+        .tab {
+            padding: 10px 24px;
+            cursor: pointer;
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            font-size: 14px;
+            transition: background-color 0.2s, color 0.2s;
+            user-select: none;
+        }
+
+        /* Hover: sáng lên nếu tab chưa được chọn */
+        .tab:hover:not(.active) {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* Tab được chọn: tô màu xanh cyan (#00bcd4) */
+        .tab.active {
+            background-color: #00bcd4 !important;
+            color: #ffffff !important;
+            font-weight: bold;
+            border-color: #00bcd4;
+        }
+
+        /* Khung nội dung tương ứng của mỗi Tab */
+        .tab-content {
+            padding: 25px;
+            border: 1px solid #cbd5e1;
+            border-radius: 0 4px 4px 4px;
+            background-color: #ffffff;
+            min-height: 250px;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .tab-content h3 {
+            color: #008ba3;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>CHUYỂN ĐỔI TAB NỘI DUNG LINH HOẠT</h1>
+        <p>Mục 7.8: Tab màu cyan (#00bcd4), hover đổi màu, hiển thị nội dung trang tương ứng</p>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html" class="active">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">MỤC 7.8: TAB NỘI DUNG</h2>
+
+        <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">
+            * Bấm vào từng Tab để chuyển đổi trang tương ứng. Rê chuột qua tab chưa chọn sẽ sáng lên.
+        </p>
+
+        <!-- Khối chứa các tiêu đề Tab -->
+        <div class="tab-container">
+            <div class="tab" data-tab="tab1">Tab 1: Báo Dân Trí</div>
+            <div class="tab" data-tab="tab2">Tab 2: An Toàn Web</div>
+            <div class="tab" data-tab="tab3">Tab 3: Học Viện KTMM</div>
+            <div class="tab" data-tab="tab4">Tab 4: Sinh Viên Đạt</div>
+        </div>
+
+        <!-- Khối chứa nội dung các Tab -->
+        <div class="tab-content" id="tab1">
+            <h3>Nội dung của Tab 1: Cổng thông tin điện tử Dân Trí</h3>
+            <p>Trang tin tức thời sự, kinh tế, xã hội hàng đầu Việt Nam. Tích hợp các chuyên mục văn hóa, pháp luật, thể thao và công nghệ số.</p>
+            <div style="margin-top: 15px; padding: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px;">
+                <strong>Tin nóng:</strong> Đẩy mạnh ứng dụng an toàn thông tin và trí tuệ nhân tạo trong kỷ nguyên số.
+            </div>
+        </div>
+
+        <div class="tab-content" id="tab2">
+            <h3>Nội dung của Tab 2: Công Nghệ Web An Toàn</h3>
+            <p>Môn học trang bị kiến thức về bảo mật ứng dụng web, phòng chống các tấn công phổ biến như SQL Injection, Cross-Site Scripting (XSS), CSRF và kiểm soát quyền truy cập client/server.</p>
+        </div>
+
+        <div class="tab-content" id="tab3">
+            <h3>Nội dung của Tab 3: Học Viện Kỹ Thuật Mật Mã</h3>
+            <p>Học viện Kỹ thuật Mật mã là cơ sở giáo dục đại học công lập trực thuộc Ban Cơ yếu Chính phủ, đào tạo nguồn nhân lực chất lượng cao về An toàn thông tin, Công nghệ thông tin và Kỹ thuật điện tử viễn thông.</p>
+        </div>
+
+        <div class="tab-content" id="tab4">
+            <h3>Nội dung của Tab 4: Thông Tin Sinh Viên Thực Hiện</h3>
+            <p><strong>Họ và tên:</strong> Phạm Tiến Đạt</p>
+            <p><strong>Số thứ tự:</strong> 04</p>
+            <p><strong>Mã sinh viên:</strong> AT200311</p>
+            <p><strong>Lớp học phần:</strong> Công nghệ Web an toàn - Khóa 20</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+    </div>
+</div>
+
+<script>
+    /* =========================================================================
+       JAVASCRIPT CHUYỂN ĐỔI TAB (MỤC 7.8)
+       Sinh viên: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+       ========================================================================= */
+
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // 1. Xóa trạng thái active ở tất cả các tab
+            tabs.forEach(t => t.classList.remove('active'));
+
+            // 2. Ẩn toàn bộ nội dung các tab
+            contents.forEach(c => c.style.display = 'none');
+
+            // 3. Đánh dấu tab vừa được chọn
+            tab.classList.add('active');
+
+            // 4. Lấy thuộc tính data-tab và hiển thị khung nội dung tương ứng
+            const target = tab.getAttribute('data-tab');
+            const targetContent = document.getElementById(target);
+            if (targetContent) {
+                targetContent.style.display = 'block';
+            }
+        });
+    });
+
+    // Mặc định kích hoạt tab đầu tiên khi tải trang
+    if (tabs.length > 0) {
+        tabs[0].click();
+    }
+</script>
+
+</body>
+</html>

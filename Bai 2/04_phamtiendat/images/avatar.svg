@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d47a1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#42a5f5;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="58" fill="url(#grad)" stroke="#ffffff" stroke-width="3"/>
+  <!-- Đầu -->
+  <circle cx="60" cy="45" r="22" fill="#ffe0b2"/>
+  <!-- Kính cận -->
+  <rect x="43" y="40" width="14" height="10" rx="3" fill="none" stroke="#263238" stroke-width="2.5"/>
+  <rect x="63" y="40" width="14" height="10" rx="3" fill="none" stroke="#263238" stroke-width="2.5"/>
+  <line x1="57" y1="45" x2="63" y2="45" stroke="#263238" stroke-width="2.5"/>
+  <!-- Miệng cười -->
+  <path d="M52 56 Q60 63 68 56" fill="none" stroke="#d84315" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Tóc -->
+  <path d="M38 42 Q40 22 60 22 Q80 22 82 42 C74 33 66 35 60 35 C54 35 46 33 38 42 Z" fill="#212121"/>
+  <!-- Thân áo -->
+  <path d="M22 108 C25 80 40 73 60 73 C80 73 95 80 98 108 Z" fill="#1565c0"/>
+  <!-- Cổ áo -->
+  <polygon points="60,86 48,73 72,73" fill="#ffffff"/>
+  <polygon points="60,86 54,73 66,73" fill="#ef5350"/>
+</svg>

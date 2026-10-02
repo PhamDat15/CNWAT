@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.4 - Nhập Liệu Table HOSO | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho Form Hồ Sơ Sinh Viên */
+        .form-card {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 25px 30px;
+            max-width: 580px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-card h3 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 17px;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 12px;
+            color: #334155;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+        }
+
+        .btn-submit-hoso {
+            width: 100%;
+            padding: 10px;
+            background-color: #2563eb;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .btn-submit-hoso:hover {
+            background-color: #1d4ed8;
+        }
+
+        #error-msg-hoso {
+            color: #b91c1c;
+            background-color: #fef2f2;
+            padding: 10px 14px;
+            border: 1px solid #fecaca;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            display: none;
+        }
+
+        #result-box-hoso {
+            color: #065f46;
+            background-color: #ecfdf5;
+            padding: 12px 16px;
+            border: 1px solid #a7f3d0;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-size: 13px;
+            display: none;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Thông tin sinh viên cá nhân hóa -->
+        <div class="student-info">
+            <h4>Thông tin SV</h4>
+            <div class="student-avatar">[ Ảnh 3x4 ]</div>
+            <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+            <p><strong>STT:</strong> 04</p>
+            <p><strong>MSSV:</strong> AT200311</p>
+            <p><strong>Lớp:</strong> AT20A</p>
+        </div>
+
+        <!-- Banner -->
+        <div class="banner">
+            <h1>QUẢN LÝ HỒ SƠ SINH VIÊN & ĐIỂM SỐ</h1>
+            <p>Khoa An toàn Thông tin - HVKTMM | Bài tập 7.4</p>
+        </div>
+
+        <!-- Sidebar menu -->
+        <div class="sidebar">
+            <h3>DANH MỤC BÀI TẬP</h3>
+            <ul>
+                <li><a href="index.html">Trang chủ tổng hợp</a></li>
+                <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+                <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+                <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+                <li><a href="2.4_hoso.html" class="active">2.4. Form Hồ sơ</a></li>
+                <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+                <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+                <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+                <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+                <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+                <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+                <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+                <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+            </ul>
+        </div>
+
+        <!-- Nội dung chính -->
+        <div class="main-content">
+            <h2 class="content-title">MỤC 7.4: THIẾT KẾ FORM NHẬP LIỆU CHO TABLE HOSO</h2>
+
+            <div class="form-card">
+                <h3>Hồ Sơ Sinh Viên & Điểm Tuyển Sinh</h3>
+
+                <div id="error-msg-hoso"></div>
+
+                <form id="frmHoSo" onsubmit="return validateFormHoSo();">
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="mahs">Mã Hồ Sơ (Char 8):</label>
+                            <input type="text" id="mahs" placeholder="Ví dụ: HS000311" maxlength="8">
+                        </div>
+                        <div class="form-group">
+                            <label for="hoten">Họ và Tên (Char 50):</label>
+                            <input type="text" id="hoten" placeholder="Ví dụ: Phạm Tiến Đạt">
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label for="ngaysinh">Ngày Sinh (Date):</label>
+                            <input type="date" id="ngaysinh">
+                        </div>
+                        <div class="form-group">
+                            <label for="lop">Mã Lớp (Char 6):</label>
+                            <input type="text" id="lop" placeholder="Ví dụ: AT20A" maxlength="6">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="diachi">Địa Chỉ (Char 150):</label>
+                        <input type="text" id="diachi" placeholder="Ví dụ: Hà Nội, Việt Nam">
+                    </div>
+
+                    <!-- Nhóm điểm thi 3 môn -->
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label for="diemtoan">Điểm Toán (Float):</label>
+                            <input type="number" step="0.1" id="diemtoan" placeholder="0 - 10" min="0" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="diemly">Điểm Lý (Float):</label>
+                            <input type="number" step="0.1" id="diemly" placeholder="0 - 10" min="0" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="diemhoa">Điểm Hóa (Float):</label>
+                            <input type="number" step="0.1" id="diemhoa" placeholder="0 - 10" min="0" max="10">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit-hoso">TÍNH TỔNG ĐIỂM & LƯU HỒ SƠ</button>
+                </form>
+
+                <div id="result-box-hoso"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================================
+           JAVASCRIPT KIỂM TRA FORM TABLE HOSO VÀ TỰ ĐỘNG TÍNH TỔNG ĐIỂM
+           Sinh viên thực hiện: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+           ========================================================================= */
+
+        function validateFormHoSo() {
+            var mahs = document.getElementById("mahs").value.trim();
+            var hoten = document.getElementById("hoten").value.trim();
+            var ngaysinh = document.getElementById("ngaysinh").value;
+            var diachi = document.getElementById("diachi").value.trim();
+            var lop = document.getElementById("lop").value.trim();
+            var diemtoan = document.getElementById("diemtoan").value.trim();
+            var diemly = document.getElementById("diemly").value.trim();
+            var diemhoa = document.getElementById("diemhoa").value.trim();
+
+            var errDiv = document.getElementById("error-msg-hoso");
+            var resDiv = document.getElementById("result-box-hoso");
+            var errorMsg = "";
+
+            errDiv.style.display = "none";
+            resDiv.style.display = "none";
+
+            // Kiểm tra MAHS (Char(8))
+            if (mahs === "") {
+                errorMsg = "Vui lòng nhập Mã hồ sơ.";
+            } else if (mahs.length > 8) {
+                errorMsg = "Mã hồ sơ không được quá 8 ký tự.";
+            }
+            // Kiểm tra HOTEN (Char(50))
+            else if (hoten === "") {
+                errorMsg = "Vui lòng nhập Họ tên sinh viên.";
+            } else if (hoten.length > 50) {
+                errorMsg = "Họ tên không được vượt quá 50 ký tự.";
+            } else if (/[0-9]/.test(hoten)) {
+                errorMsg = "Họ tên không được chứa ký tự số.";
+
+            }
+            // Kiểm tra NGAYSINH (Date)
+            else if (ngaysinh === "") {
+                errorMsg = "Vui lòng chọn Ngày sinh.";
+            }
+            // Kiểm tra LOP (Char(6))
+            else if (lop === "") {
+                errorMsg = "Vui lòng nhập Mã lớp.";
+            } else if (lop.length > 6) {
+                errorMsg = "Mã lớp không được vượt quá 6 ký tự.";
+            }
+            // Kiểm tra DIACHI (Char(150))
+            else if (diachi === "") {
+                errorMsg = "Vui lòng nhập Địa chỉ.";
+            } else if (diachi.length > 150) {
+                errorMsg = "Địa chỉ không được vượt quá 150 ký tự.";
+            }
+            // Kiểm tra điểm số Toán, Lý, Hóa (Float từ 0 đến 10)
+            else if (diemtoan === "" || isNaN(diemtoan) || parseFloat(diemtoan) < 0 || parseFloat(diemtoan) > 10) {
+                errorMsg = "Điểm Toán phải là số thực từ 0.0 đến 10.0.";
+            } else if (diemly === "" || isNaN(diemly) || parseFloat(diemly) < 0 || parseFloat(diemly) > 10) {
+                errorMsg = "Điểm Lý phải là số thực từ 0.0 đến 10.0.";
+            } else if (diemhoa === "" || isNaN(diemhoa) || parseFloat(diemhoa) < 0 || parseFloat(diemhoa) > 10) {
+                errorMsg = "Điểm Hóa phải là số thực từ 0.0 đến 10.0.";
+            }
+
+            if (errorMsg !== "") {
+                errDiv.style.display = "block";
+                errDiv.innerHTML = "⚠️ " + errorMsg;
+                return false;
+            }
+
+            // --- TÍNH TỔNG ĐIỂM (Đoạn mã yêu cầu ở trang 28 giáo trình) ---
+            // 1. Ép kiểu chuỗi sang float
+            var fToan = parseFloat(diemtoan);
+            var fLy = parseFloat(diemly);
+            var fHoa = parseFloat(diemhoa);
+
+            // 2. Tính tổng điểm
+            var tongDiem = fToan + fLy + fHoa;
+
+            // 3. Làm tròn số 2 chữ số thập phân
+            tongDiem = Math.round(tongDiem * 100) / 100;
+
+            // 4. Hiển thị thông báo kết quả
+            resDiv.style.display = "block";
+            resDiv.innerHTML = " <strong>Hồ sơ sinh viên hợp lệ!</strong><br>" +
+                "- Mã HS: <strong>" + mahs + "</strong> | Họ tên: <strong>" + hoten + "</strong><br>" +
+                "- Lớp: <strong>" + lop + "</strong> | Ngày sinh: " + ngaysinh + "<br>" +
+                "- Điểm chi tiết: Toán: " + fToan + " | Lý: " + fLy + " | Hóa: " + fHoa + "<br>" +
+                "- <strong>Tổng điểm 3 môn: " + tongDiem + "</strong>";
+
+            alert("Dữ liệu hợp lệ!\nTổng điểm 3 môn của " + hoten + " là: " + tongDiem + "\nĐang gửi form...");
+            return false; // Giữ trên màn hình để kiểm tra
+        }
+    </script>
+
+</body>
+
+</html>

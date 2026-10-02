@@ -1,0 +1,175 @@
+/* ==========================================================================
+   HỌC VIỆN KỸ THUẬT MẬT MÃ - KHOA AN TOÀN THÔNG TIN
+   HỌC PHẦN: CÔNG NGHỆ WEB AN TOÀN
+   Sinh viên thực hiện: Phạm Tiến Đạt
+   Số thứ tự: 04
+   Mã sinh viên: AT200311
+   ========================================================================== */
+
+/* 1. Thiết lập toàn cục (Reset CSS) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.5;
+    padding: 20px 10px;
+}
+
+/* 2. Khung bao ngoài chính (Container) tuân theo bố cục Grid trong đề bài */
+.container {
+    max-width: 1050px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 2px solid #2c3e50;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    display: grid;
+    grid-template-areas: 
+        "info banner"
+        "menu content"
+        "footer footer";
+    grid-template-columns: 240px 1fr;
+    min-height: 650px;
+}
+
+/* 3. Khung thông tin sinh viên (Góc trên bên trái) */
+.student-info {
+    grid-area: info;
+    border-right: 2px solid #2c3e50;
+    border-bottom: 2px solid #2c3e50;
+    padding: 12px;
+    background: #eef3f8;
+    font-size: 13px;
+}
+
+.student-info h4 {
+    color: #0b3c5d;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #cbd5e1;
+    padding-bottom: 4px;
+}
+
+.student-info p {
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.student-avatar {
+    width: 80px;
+    height: 100px;
+    border: 1px dashed #7f8c8d;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7f8c8d;
+    font-weight: bold;
+    margin: 6px auto;
+    font-size: 12px;
+}
+
+/* 4. Banner (Góc trên bên phải) */
+.banner {
+    grid-area: banner;
+    border-bottom: 2px solid #2c3e50;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.banner h1 {
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.banner p {
+    font-size: 13px;
+    color: #dbeafe;
+}
+
+/* 5. Cột trái Menu điều hướng (Sidebar) */
+.sidebar {
+    grid-area: menu;
+    border-right: 2px solid #2c3e50;
+    background-color: #fafafa;
+    padding: 15px 10px;
+}
+
+.sidebar h3 {
+    font-size: 14px;
+    color: #34495e;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    border-left: 4px solid #3498db;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    margin-bottom: 6px;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    color: #333333;
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar a:hover {
+    background-color: #e2e8f0;
+    color: #1e3c72;
+    padding-left: 14px;
+}
+
+.sidebar a.active {
+    background-color: #1e3c72;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* 6. Vùng nội dung chính bên phải (Main Content) */
+.main-content {
+    grid-area: content;
+    padding: 25px 30px;
+    background-color: #ffffff;
+    overflow-x: auto;
+}
+
+.content-title {
+    font-size: 18px;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+/* 7. Chân trang (Footer) */
+.footer {
+    grid-area: footer;
+    border-top: 2px solid #2c3e50;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 12px;
+    font-size: 13px;
+}

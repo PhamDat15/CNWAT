@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Báo Cáo Thực Hành - Công Nghệ Web An Toàn | Phạm Tiến Đạt - AT200311</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Dark Theme Colors (Default) */
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --bg-card-hover: rgba(26, 36, 56, 0.9);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(59, 130, 246, 0.4);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.35);
+            --secondary: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            
+            --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 25px rgba(59, 130, 246, 0.2);
+            --glass-backdrop: blur(16px);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card-hover: rgba(255, 255, 255, 1);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-highlight: rgba(37, 99, 235, 0.35);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            
+            --primary: #2563eb;
+            --primary-glow: rgba(37, 99, 235, 0.2);
+            --secondary: #7c3aed;
+            --accent-cyan: #0891b2;
+            --accent-emerald: #059669;
+            --accent-amber: #d97706;
+            
+            --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.07);
+            --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.15);
+            --glass-backdrop: blur(12px);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Ambient grid pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+            opacity: 0.35;
+            z-index: -1;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-backdrop);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-logo-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 800;
+            font-size: 20px;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .nav-title h1 {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-title p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .theme-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 24px 60px 24px;
+        }
+
+        /* Hero Banner */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.4), rgba(88, 28, 135, 0.3));
+            border: 1px solid var(--border-highlight);
+            border-radius: 20px;
+            padding: 36px 40px;
+            margin-bottom: 35px;
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+            backdrop-filter: var(--glass-backdrop);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.25), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--accent-cyan);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #93c5fd, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        [data-theme="light"] .hero-title {
+            background: linear-gradient(to right, #1e3a8a, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            max-width: 650px;
+            line-height: 1.6;
+        }
+
+        /* Student ID Card inside Hero */
+        .student-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            min-width: 320px;
+            backdrop-filter: var(--glass-backdrop);
+            box-shadow: var(--shadow-card);
+        }
+
+        .student-avatar {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            overflow: hidden;
+            background: #1e293b;
+            flex-shrink: 0;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .student-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .student-meta h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .student-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .chip {
+            font-size: 11px;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .chip.primary {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        /* Stats Bar */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 35px;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            backdrop-filter: var(--glass-backdrop);
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--primary);
+        }
+
+        .stat-icon.green {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-emerald);
+        }
+
+        .stat-icon.purple {
+            background: rgba(139, 92, 246, 0.12);
+            color: var(--secondary);
+        }
+
+        .stat-icon.amber {
+            background: rgba(245, 158, 11, 0.12);
+            color: var(--accent-amber);
+        }
+
+        .stat-data h4 {
+            font-size: 22px;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .stat-data p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        /* Controls Section: Search & Tabs */
+        .controls-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 12px 18px;
+            border-radius: 16px;
+            backdrop-filter: var(--glass-backdrop);
+        }
+
+        .tab-filters {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .filter-badge {
+            background: rgba(0, 0, 0, 0.25);
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 9999px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 380px;
+            min-width: 240px;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-family: inherit;
+            padding: 10px 16px 10px 38px;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Section Title */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 35px 0 18px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-tag {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        /* Single Task Card */
+        .task-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: var(--glass-backdrop);
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s, border-color 0.25s;
+        }
+
+        .task-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .task-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-highlight);
+            box-shadow: var(--shadow-card), 0 12px 30px -10px var(--primary-glow);
+            background: var(--bg-card-hover);
+        }
+
+        .task-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .card-code {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--primary);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+        }
+
+        .card-status {
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent-emerald);
+        }
+
+        .card-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 8px var(--accent-emerald);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 14px;
+        }
+
+        .btn-launch {
+            flex: 1;
+            background: var(--primary);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-launch:hover {
+            background: #1d4ed8;
+            transform: scale(1.02);
+        }
+
+        .btn-preview {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .btn-preview:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Quick Docs Card */
+        .docs-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(6, 182, 212, 0.08));
+            border: 1px dashed rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .docs-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-emerald);
+            margin-bottom: 8px;
+        }
+
+        /* Modal Preview Drawer */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-header {
+            padding: 14px 20px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-title-box h3 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .modal-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .modal-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .modal-close {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-iframe {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #ffffff;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding: 30px 24px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-card);
+            backdrop-filter: var(--glass-backdrop);
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .footer-highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+            .student-card {
+                min-width: 100%;
+            }
+            .hero-title {
+                font-size: 26px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                max-width: 100%;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="nav-logo-badge">KMA</div>
+                <div class="nav-title">
+                    <h1>HỌC VIỆN KỸ THUẬT MẬT MÃ <span style="font-size: 12px; background: rgba(59,130,246,0.2); color: var(--primary); padding: 2px 6px; border-radius: 4px;">CNWAT</span></h1>
+                    <p>Khoa An Toàn Thông Tin &bull; Cổng Điều Hướng Thực Hành Web</p>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <button class="theme-btn" id="themeToggleBtn" onclick="toggleTheme()">
+                    <span id="themeIcon">☀️</span>
+                    <span id="themeText">Giao diện Sáng</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN WRAPPER -->
+    <div class="container">
+
+        <!-- HERO SECTION -->
+        <header class="hero">
+            <div>
+                <div class="hero-tag">
+                    <span>⚡ Báo Cáo Học Phần 2026</span>
+                </div>
+                <h1 class="hero-title">Công Nghệ Web An Toàn</h1>
+                <p class="hero-desc">
+                    Hệ thống tích hợp toàn bộ các bài tập thực hành <strong>HTML5 & CSS3 Layout</strong> (Bài 2), <strong>Lập trình JavaScript DOM tương tác nâng cao</strong> (Bài 3) và <strong>Lập trình Web Server-side PHP & CSDL MySQL</strong> (Bài 4). Đầy đủ chú thích thuật toán, bảo mật nhập liệu và tối ưu trải nghiệm người dùng.
+                </p>
+            </div>
+
+            <!-- Student Profile Badge -->
+            <div class="student-card">
+                <div class="student-avatar">
+                    <img src="Bai 2/04_phamtiendat/images/avatar.svg" alt="Avatar SV" onerror="this.src='https://ui-avatars.com/api/?name=Pham+Tien+Dat&background=0D8ABC&color=fff'">
+                </div>
+                <div class="student-meta">
+                    <h3>Phạm Tiến Đạt</h3>
+                    <p style="font-size: 12px; color: var(--text-secondary);">Sinh viên Thực hành (Tác giả)</p>
+                    <div class="student-chips">
+                        <span class="chip primary">STT: 04</span>
+                        <span class="chip primary">MSSV: AT200311</span>
+                        <span class="chip">Lớp: AT20A</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- STATS BAR -->
+        <section class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon">📚</div>
+                <div class="stat-data">
+                    <h4 id="totalTasksCount">34</h4>
+                    <p>Tổng số bài tập thực hành</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon green">✅</div>
+                <div class="stat-data">
+                    <h4>100%</h4>
+                    <p>Tiến độ đã hoàn thành</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon purple">💻</div>
+                <div class="stat-data">
+                    <h4>HTML5 &bull; JS &bull; PHP</h4>
+                    <p>Công nghệ Frontend &amp; Backend</p>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon amber">🛡️</div>
+                <div class="stat-data">
+                    <h4>Web An Toàn</h4>
+                    <p>Kiểm duyệt &amp; Regex chặt chẽ</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTROLS: FILTER TABS & SEARCH -->
+        <div class="controls-bar">
+            <div class="tab-filters">
+                <button class="filter-btn active" onclick="filterCategory('all', this)">
+                    Tất cả <span class="filter-badge" id="badgeAll">34</span>
+                </button>
+                <button class="filter-btn" onclick="filterCategory('bai2', this)">
+                    Bài 2: HTML &amp; CSS <span class="filter-badge" id="badgeB2">6</span>
+                </button>
+                <button class="filter-btn" onclick="filterCategory('bai3', this)">
+                    Bài 3: JavaScript DOM <span class="filter-badge" id="badgeB3">12</span>
+                </button>
+                <button class="filter-btn" onclick="filterCategory('bai4', this)">
+                    Bài 4: PHP &amp; MySQL <span class="filter-badge" id="badgeB4">16</span>
+                </button>
+            </div>
+
+            <div class="search-box">
+                <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Tìm bài tập (ví dụ: máy tính, form, CV, 2.10)..." oninput="handleSearch()">
+            </div>
+        </div>
+
+        <!-- =================== SECTION BÀI 2 =================== -->
+        <div class="category-group" id="group-bai2">
+            <div class="section-header">
+                <h2>
+                    <span>🎨 Bài Thực Hành 2: HTML &amp; CSS Layouts</span>
+                </h2>
+                <span class="section-tag">6 Bài</span>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Bai 2 - Home Danh sách lớp -->
+                <div class="task-card" data-category="bai2" data-keywords="danh sách sinh viên lớp học home bài 2">
+                    <div class="card-top">
+                        <span class="card-code">Bài 2 - Mục Lục</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Danh Sách Bài Thực Hành Của Lớp</h3>
+                    <p class="card-desc">Bảng tra cứu danh sách các sinh viên trong lớp, làm nổi bật thông tin sinh viên số 04 - Phạm Tiến Đạt.</p>
+                    <div class="card-tags">
+                        <span class="tag">HTML Table</span>
+                        <span class="tag">Hover Row</span>
+                        <span class="tag">Class List</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 2/home.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 2/home.html', 'Danh Sách Bài Thực Hành Lớp')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- Bài 1.1 -->
+                <div class="task-card" data-category="bai2" data-keywords="1.1 ví dụ mẫu example layout bố cục">
+                    <div class="card-top">
+                        <span class="card-code">Bài 1.1</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Ví Dụ Mẫu &amp; Bố Cục Trang</h3>
+                    <p class="card-desc">Khung bố cục 3 cột chuẩn gồm Header, Sidebar điều hướng, Vùng nội dung chính và Footer bản quyền.</p>
+                    <div class="card-tags">
+                        <span class="tag">Semantic HTML</span>
+                        <span class="tag">3-Column Layout</span>
+                        <span class="tag">CSS Grid/Flex</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 2/04_phamtiendat/example.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 2/04_phamtiendat/example.html', 'Bài 1.1 - Ví Dụ Mẫu')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- Bài 1.2 -->
+                <div class="task-card" data-category="bai2" data-keywords="1.2 giới thiệu bản thân personal info information profile">
+                    <div class="card-top">
+                        <span class="card-code">Bài 1.2</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Giới Thiệu Bản Thân</h3>
+                    <p class="card-desc">Trang thông tin cá nhân của sinh viên Phạm Tiến Đạt, sở thích công nghệ, kỹ năng an toàn thông tin và định hướng.</p>
+                    <div class="card-tags">
+                        <span class="tag">Profile UI</span>
+                        <span class="tag">Badge Chips</span>
+                        <span class="tag">Clean Design</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 2/04_phamtiendat/information.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 2/04_phamtiendat/information.html', 'Bài 1.2 - Giới Thiệu Bản Thân')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- Bài 1.3 -->
+                <div class="task-card" data-category="bai2" data-keywords="1.3 bảng điểm cá nhân score kết quả học tập">
+                    <div class="card-top">
+                        <span class="card-code">Bài 1.3</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Bảng Điểm Cá Nhân</h3>
+                    <p class="card-desc">Bảng điểm chuẩn văn bản hành chính theo kỳ, định dạng bảng kẻ ô, thống kê điểm học phần và điểm rèn luyện.</p>
+                    <div class="card-tags">
+                        <span class="tag">Admin Form</span>
+                        <span class="tag">Complex Table</span>
+                        <span class="tag">Typography</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 2/04_phamtiendat/Score.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 2/04_phamtiendat/Score.html', 'Bài 1.3 - Bảng Điểm Cá Nhân')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- Bài 1.4 -->
+                <div class="task-card" data-category="bai2" data-keywords="1.4 sơ yếu lý lịch curriculum vitae cv resume">
+                    <div class="card-top">
+                        <span class="card-code">Bài 1.4</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Lý Lịch Cá Nhân (CV)</h3>
+                    <p class="card-desc">Hồ sơ xin việc chuyên nghiệp 2 cột hiện đại: Thông tin liên hệ, mục tiêu nghề nghiệp, kỹ năng chuyên môn.</p>
+                    <div class="card-tags">
+                        <span class="tag">Resume / CV</span>
+                        <span class="tag">Flex Layout</span>
+                        <span class="tag">Modern Color</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 2/04_phamtiendat/Curriculum_vitae.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 2/04_phamtiendat/Curriculum_vitae.html', 'Bài 1.4 - Lý Lịch CV')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- Bài 1.7.5 -->
+                <div class="task-card" data-category="bai2" data-keywords="1.7.5 tin tức tintuc cổng thông tin portal báo chí">
+                    <div class="card-top">
+                        <span class="card-code">Bài 1.7.5</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Cổng Thông Tin &amp; Tin Tức</h3>
+                    <p class="card-desc">Giao diện cổng thông tin báo chí với thanh menu danh mục đa cấp, banner sự kiện và tin tức khoa học kỹ thuật.</p>
+                    <div class="card-tags">
+                        <span class="tag">News Portal</span>
+                        <span class="tag">Multi Column</span>
+                        <span class="tag">Navigation Bar</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 2/04_phamtiendat/tintuc.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 2/04_phamtiendat/tintuc.html', 'Bài 1.7.5 - Cổng Thông Tin Tin Tức')">Xem nhanh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================== SECTION BÀI 3 =================== -->
+        <div class="category-group" id="group-bai3">
+            <div class="section-header">
+                <h2>
+                    <span>⚡ Bài Thực Hành 3: JavaScript DOM &amp; Sự Kiện</span>
+                </h2>
+                <span class="section-tag">12 Bài Tập + Dashboard</span>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Dashboard Bài 3 -->
+                <div class="task-card" data-category="bai3" data-keywords="dashboard tổng quan bài 3 index mục lục">
+                    <div class="card-top">
+                        <span class="card-code">Bài 3 - Dashboard</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Dashboard Tổng Quan Bài 3</h3>
+                    <p class="card-desc">Bảng điều khiển chuyên biệt của Bài 3 với sidebar chuyển trang và danh mục 12 bài tập JS trực quan.</p>
+                    <div class="card-tags">
+                        <span class="tag">Dashboard</span>
+                        <span class="tag">Sidebar Nav</span>
+                        <span class="tag">Portal UI</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/index.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/index.html', 'Dashboard Tổng Hợp Bài 3')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.1 Ví dụ mẫu -->
+                <div class="task-card" data-category="bai3" data-keywords="2.1 ví dụ viju mẫu slide 14 bài biến loop timer">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.1 (2.1)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">14 Ví Dụ Mẫu JavaScript</h3>
+                    <p class="card-desc">Tổng hợp 14 bài toán cơ bản trong slide: biến, if, switch-case, vòng lặp, xử lý chuỗi, mảng, thời gian và timer.</p>
+                    <div class="card-tags">
+                        <span class="tag">Core JS</span>
+                        <span class="tag">Array &amp; String</span>
+                        <span class="tag">Timers</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.1_viju.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.1_viju.html', '2.1 - 14 Ví Dụ Mẫu JS')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.2 Trắc nghiệm -->
+                <div class="task-card" data-category="bai3" data-keywords="2.2 trắc nghiệm tracnghiem quiz test radio chấm điểm">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.2 (2.2)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Hệ Thống Thi Trắc Nghiệm</h3>
+                    <p class="card-desc">Hệ thống câu hỏi trắc nghiệm chia theo Tab Test 1 &amp; Test 2, kiểm tra đáp án và tính điểm tự động.</p>
+                    <div class="card-tags">
+                        <span class="tag">Quiz Logic</span>
+                        <span class="tag">Radio Inputs</span>
+                        <span class="tag">Tab Switching</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.2_tracnghiem.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.2_tracnghiem.html', '2.2 - Thi Trắc Nghiệm')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.3 Form Lớp -->
+                <div class="task-card" data-category="bai3" data-keywords="2.3 lớp lop form validation kiểm tra mã lớp gvcn">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.3 (2.3)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Form Quản Lý Lớp Học</h3>
+                    <p class="card-desc">Kiểm tra hợp lệ ràng buộc form nhập liệu: Mã lớp, Tên lớp, Khóa học và Giáo viên chủ nhiệm bằng JS.</p>
+                    <div class="card-tags">
+                        <span class="tag">Form Validation</span>
+                        <span class="tag">Alert Error</span>
+                        <span class="tag">Focus Control</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.3_lop.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.3_lop.html', '2.3 - Form Lớp')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.4 Form Hồ sơ -->
+                <div class="task-card" data-category="bai3" data-keywords="2.4 hồ sơ hoso điểm toán lý hóa tính tổng">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.4 (2.4)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Form Quản Lý Hồ Sơ &amp; Điểm</h3>
+                    <p class="card-desc">Kiểm tra thông tin học sinh, nhập điểm thi 3 môn Toán, Lý, Hóa thang 0-10 và tự động tính tổng điểm.</p>
+                    <div class="card-tags">
+                        <span class="tag">Auto Calculate</span>
+                        <span class="tag">Number Range</span>
+                        <span class="tag">Dynamic UI</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.4_hoso.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.4_hoso.html', '2.4 - Form Hồ Sơ')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.5 Form Đăng ký -->
+                <div class="task-card" data-category="bai3" data-keywords="2.5 đăng ký dangky form chuẩn hóa họ tên enter masked regex">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.5 (2.5)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Form Đăng Ký Chuẩn Hóa</h3>
+                    <p class="card-desc">Tự động chuẩn hóa họ tên chữ hoa, mặt nạ ngày sinh (dd/mm/yyyy), phím Enter chuyển ô và kiểm tra định dạng email.</p>
+                    <div class="card-tags">
+                        <span class="tag">Text Capitalize</span>
+                        <span class="tag">Key Navigation</span>
+                        <span class="tag">RegEx Validation</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.5_dangky.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.5_dangky.html', '2.5 - Form Đăng Ký')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.6 Danh sách nhân sự -->
+                <div class="task-card" data-category="bai3" data-keywords="2.6 danh sách danhsach bảng table hover chọn tất cả checkbox vàng">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.6 (2.6)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Bảng Danh Sách Nhân Sự</h3>
+                    <p class="card-desc">Bảng tương tác: rê chuột hàng chuyển màu xanh lá, click chọn checkbox hàng chuyển màu vàng, nút Chọn tất cả.</p>
+                    <div class="card-tags">
+                        <span class="tag">Table Highlight</span>
+                        <span class="tag">Select All / None</span>
+                        <span class="tag">DOM ClassList</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.6_danhsach.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.6_danhsach.html', '2.6 - Danh Sách Nhân Sự')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.7 Thực đơn -->
+                <div class="task-card" data-category="bai3" data-keywords="2.7 thực đơn thucdon menu tương tác hover click">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.7 (2.7)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Thực Đơn Tương Tác (Menu)</h3>
+                    <p class="card-desc">Menu dọc nhiều mục, hiệu ứng hover làm sáng, click chọn mục chuyển màu xanh và cập nhật tiêu đề nội dung bên phải.</p>
+                    <div class="card-tags">
+                        <span class="tag">Menu Navigation</span>
+                        <span class="tag">Active State</span>
+                        <span class="tag">Event Listeners</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.7_thucdon.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.7_thucdon.html', '2.7 - Thực Đơn Menu')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.8 Tab nội dung -->
+                <div class="task-card" data-category="bai3" data-keywords="2.8 tab chuyển đổi nội dung tabs cyan giao diện">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.8 (2.8)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Chuyển Đổi Tab Nội Dung</h3>
+                    <p class="card-desc">Hệ thống tab chuyển đổi nội dung ngang hiện đại, kích hoạt ẩn/hiện bảng dữ liệu tức thì, tab active màu cyan nổi bật.</p>
+                    <div class="card-tags">
+                        <span class="tag">Tabs Component</span>
+                        <span class="tag">Show / Hide</span>
+                        <span class="tag">Smooth Animation</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.8_tab.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.8_tab.html', '2.8 - Tabs Nội Dung')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.9 Cây thư mục -->
+                <div class="task-card" data-category="bai3" data-keywords="2.9 cây cay thư mục tree view phân cấp toggle đóng mở">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.9 (2.9)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Cây Thư Mục Phân Cấp (Tree View)</h3>
+                    <p class="card-desc">Cấu trúc cây thư mục đa cấp (Root, Folder, File) với nút bấm +/- đóng/mở nhánh con và chọn thư mục làm việc.</p>
+                    <div class="card-tags">
+                        <span class="tag">Tree Structure</span>
+                        <span class="tag">Recursive Logic</span>
+                        <span class="tag">Toggle Icon</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.9_cay.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.9_cay.html', '2.9 - Cây Thư Mục')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.10 Máy tính -->
+                <div class="task-card" data-category="bai3" data-keywords="2.10 máy tính maytinh calculator bỏ túi phép toán cộng trừ nhân chia">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.10 (2.10)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Máy Tính Bỏ Túi Điện Tử</h3>
+                    <p class="card-desc">Mô phỏng máy tính Casio bàn phím số, tính toán số học (+, -, *, /, %, +/-) chuẩn an toàn, xử lý chia cho 0 mượt mà.</p>
+                    <div class="card-tags">
+                        <span class="tag">Calculator App</span>
+                        <span class="tag">Math Operators</span>
+                        <span class="tag">Safe State</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.10_maytinh.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.10_maytinh.html', '2.10 - Máy Tính Bỏ Túi')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.11 Hoạt cảnh -->
+                <div class="task-card" data-category="bai3" data-keywords="2.11 hoạt cảnh hoatcanh animation jump stickman người que nhảy">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.11 (2.11)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Hoạt Cảnh Stickman Jump</h3>
+                    <p class="card-desc">Mô phỏng nhân vật hoạt cảnh chuyển động nhảy liên tục với nút Jump và Stop, quản lý luồng thời gian qua setInterval.</p>
+                    <div class="card-tags">
+                        <span class="tag">JS Animation</span>
+                        <span class="tag">setInterval Timer</span>
+                        <span class="tag">Canvas/Frames</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.11_hoatcanh.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.11_hoatcanh.html', '2.11 - Hoạt Cảnh Jump')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- 2.12 Sắp xếp & Tìm kiếm -->
+                <div class="task-card" data-category="bai3" data-keywords="2.12 sắp xếp tìm kiếm sapxep timkiem search sort highlight vàng mũi tên">
+                    <div class="card-top">
+                        <span class="card-code">Mục 7.12 (2.12)</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Sắp Xếp &amp; Tìm Kiếm Thời Gian Thực</h3>
+                    <p class="card-desc">Sắp xếp bảng dữ liệu tăng dần/giảm dần theo cột có mũi tên trực quan, tìm kiếm theo từ khóa có highlight nền vàng.</p>
+                    <div class="card-tags">
+                        <span class="tag">Live Search</span>
+                        <span class="tag">Sort Algorithm</span>
+                        <span class="tag">Text Highlight</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 3/2.12_sapxep_timkiem.html" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 3/2.12_sapxep_timkiem.html', '2.12 - Sắp Xếp & Tìm Kiếm')">Xem nhanh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================== SECTION BÀI 4 =================== -->
+        <div class="category-group" id="group-bai4">
+            <div class="section-header">
+                <h2>
+                    <span>🐘 Bài Thực Hành 4: Lập Trình PHP &amp; CSDL MySQL (v2.1)</span>
+                </h2>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <a href="Bai 4/index.html" target="_blank" style="padding: 4px 12px; background: rgba(59,130,246,0.15); color: var(--primary); border: 1px solid rgba(59,130,246,0.3); border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none;">Cổng Tổng Bài 4 &rarr;</a>
+                    <span class="section-tag">16 Nhiệm Vụ</span>
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <!-- NV 1 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 1 tạo template flexbox layout include header footer menu bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 1</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Tạo Template Bố Cục Flexbox</h3>
+                    <p class="card-desc">Chia tách cấu trúc module hóa: Head.php, Menu.php, Main.php, Footer.php và index.php gọi include kết hợp CSS Flexbox chuẩn.</p>
+                    <div class="card-tags">
+                        <span class="tag">Flexbox</span>
+                        <span class="tag">Include Modular</span>
+                        <span class="tag">Footer Table</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu01_Template/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu01_Template/index.php', 'Nhiệm Vụ 1 - Tạo Template Flexbox')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 2 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 2 sử dụng template register calculate marquee 10 giai thừa hình cầu bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 2</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Sử Dụng Template Cho Các Trang</h3>
+                    <p class="card-desc">Áp dụng template cho form đăng ký, nhận POST hiển thị kết quả và tính toán 10!, diện tích, thể tích khối cầu, chữ marquee chạy.</p>
+                    <div class="card-tags">
+                        <span class="tag">Template Reuse</span>
+                        <span class="tag">POST Handling</span>
+                        <span class="tag">Math Functions</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu02_SuDungTemplate/register.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu02_SuDungTemplate/register.php', 'Nhiệm Vụ 2 - Sử Dụng Template')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 3 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 3 lấy và gửi dữ liệu switch-case drawtable calculate bảng điểm ma trận 3x3 upload 10 file bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 3</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Lấy Và Gửi Dữ Liệu (Controller)</h3>
+                    <p class="card-desc">Điều hướng Switch-case trên index.php: Vẽ bảng lặp 2 vòng for, máy tính số học, bảng điểm học sinh, ma trận 3x3 và upload 10 files.</p>
+                    <div class="card-tags">
+                        <span class="tag">Switch Router</span>
+                        <span class="tag">Nested Loop</span>
+                        <span class="tag">Matrix 3x3</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu03_LayVaGuiDuLieu/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu03_LayVaGuiDuLieu/index.php', 'Nhiệm Vụ 3 - Controller Lấy & Gửi Dữ Liệu')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 4 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 4 getform form controls radio checkbox array select textarea contact1page bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 4</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Xử Lý Form Nhập Liệu Đa Dạng</h3>
+                    <p class="card-desc">Thu thập dữ liệu đầy đủ các loại input: Text, Password, Radio, Checkbox array, Select list, Textarea và form liên hệ 1 page contact1Page.</p>
+                    <div class="card-tags">
+                        <span class="tag">GetForm</span>
+                        <span class="tag">Array Inputs</span>
+                        <span class="tag">Single Page</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu04_GetForm/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu04_GetForm/index.php', 'Nhiệm Vụ 4 - GetForm Đa Dạng')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 5 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 5 phiên session login admin phân quyền upload logout bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 5</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Quản Lý Phiên (Session) &amp; Admin</h3>
+                    <p class="card-desc">Cơ chế xác thực Session bảo mật: Đăng nhập admin/admin, bảo vệ thư mục quản trị admin/index.php, upload tệp và logout.</p>
+                    <div class="card-tags">
+                        <span class="tag">Session Auth</span>
+                        <span class="tag">Admin Protected</span>
+                        <span class="tag">File Upload</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu05_Session/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu05_Session/index.php', 'Nhiệm Vụ 5 - Quản Lý Phiên Session')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 6 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 6 cookie ghi nhớ đăng nhập favorite links lưu cookie 30 ngày bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 6</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Cơ Chế Cookie &amp; Ghi Nhớ Đăng Nhập</h3>
+                    <p class="card-desc">Ghi nhớ đăng nhập 30 ngày qua Cookie, tự động điền sẵn username/password khi quay lại; quản lý danh sách Web Links ưa thích.</p>
+                    <div class="card-tags">
+                        <span class="tag">setcookie()</span>
+                        <span class="tag">Auto Login</span>
+                        <span class="tag">Favorite Links</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu06_Cookie/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu06_Cookie/index.php', 'Nhiệm Vụ 6 - Cơ Chế Cookie')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 7 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 7 function thư viện hàm xulymangso xulymatran math bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 7</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Thư Viện Hàm (Functions) Mảng &amp; Ma Trận</h3>
+                    <p class="card-desc">Tổ chức thư viện libs/xuLyMangSo.php và xuLyMatran.php; tính tổng, trung bình, min, max, sắp xếp, đảo ngược và giải tích ma trận.</p>
+                    <div class="card-tags">
+                        <span class="tag">Function Library</span>
+                        <span class="tag">1D Array</span>
+                        <span class="tag">2D Matrix</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu07_Function/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu07_Function/index.php', 'Nhiệm Vụ 7 - Thư Viện Hàm')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 8 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 8 đọc ghi file student.txt file append flat file bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 8</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Đọc Và Ghi Tệp Văn Bản (File I/O)</h3>
+                    <p class="card-desc">Quản lý hồ sơ học sinh qua file text student.txt theo định dạng 3 dòng/bản ghi. Đọc danh sách và ghi nối tiếp bản ghi mới an toàn.</p>
+                    <div class="card-tags">
+                        <span class="tag">file()</span>
+                        <span class="tag">FILE_APPEND</span>
+                        <span class="tag">Text Database</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu08_DocGhiFile/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu08_DocGhiFile/index.php', 'Nhiệm Vụ 8 - Đọc Ghi File student.txt')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 9 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 9 thao tác file qlsv data flow list add edit detail delete bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 9</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Quản Trị Sinh Viên Hoàn Chỉnh (File)</h3>
+                    <p class="card-desc">Chu trình Data Flow toàn diện (List, Add, Edit, Detail, Delete) kết hợp tải ảnh thẻ đại diện lên thư mục uploads/ lưu trữ tệp tin.</p>
+                    <div class="card-tags">
+                        <span class="tag">Full CRUD File</span>
+                        <span class="tag">Upload Avatar</span>
+                        <span class="tag">Data Flow</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu09_QuanLyFile_QLSV/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu09_QuanLyFile_QLSV/index.php', 'Nhiệm Vụ 9 - Quản Trị QLSV Bằng File')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 10 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 10 website đa ngôn ngữ multi language session constant define i18n bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 10</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Website Đa Ngôn Ngữ (i18n)</h3>
+                    <p class="card-desc">Định nghĩa hằng số trong thư mục lang/ (Tiếng Việt &amp; English), lưu lựa chọn vào Session và chuyển đổi ngôn ngữ tức thì.</p>
+                    <div class="card-tags">
+                        <span class="tag">define() Constant</span>
+                        <span class="tag">Session Lang</span>
+                        <span class="tag">Localization</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu10_DaNgonNgu/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu10_DaNgonNgu/index.php', 'Nhiệm Vụ 10 - Đa Ngôn Ngữ')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 11 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 11 csdl quanlyhocsinh lop hoso phân trang pagination mysqli bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 11</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">CSDL Quản Lý Học Sinh &amp; Phân Trang</h3>
+                    <p class="card-desc">MySQL Database quanlyhocsinh: Quản lý 2 bảng LOP và HOSO, kiểm soát khóa ngoại và phân trang 10 bản ghi/trang bằng LIMIT.</p>
+                    <div class="card-tags">
+                        <span class="tag">MySQLi</span>
+                        <span class="tag">Pagination</span>
+                        <span class="tag">Foreign Key</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu11_CSDL_QuanLyHocSinh/lop_list.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu11_CSDL_QuanLyHocSinh/lop_list.php', 'Nhiệm Vụ 11 - CSDL Quản Lý Học Sinh')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 12 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 12 truy vấn dữ liệu 3 cách fetch_row fetch_array fetch_assoc classes students bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 12</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Truy Vấn Dữ Liệu Quan Hệ (3 Cách)</h3>
+                    <p class="card-desc">Minh họa đối sánh 3 phương thức duyệt recordset: mysqli_fetch_row, fetch_array, fetch_assoc; lọc sinh viên theo từng lớp học.</p>
+                    <div class="card-tags">
+                        <span class="tag">fetch_row</span>
+                        <span class="tag">fetch_array</span>
+                        <span class="tag">fetch_assoc</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu12_TruyVanDuLieu/ListClass.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu12_TruyVanDuLieu/ListClass.php', 'Nhiệm Vụ 12 - Truy Vấn Dữ Liệu 3 Cách')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 13 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 13 web bán laptop end user productlist productdetail search bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 13</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Web Bán Laptop (Phần Khách Hàng)</h3>
+                    <p class="card-desc">Trang chủ hiển thị 2 sản phẩm mới nhất mỗi hãng, phân loại danh mục, trang chi tiết cấu hình và tìm kiếm nâng cao theo hãng.</p>
+                    <div class="card-tags">
+                        <span class="tag">E-Commerce</span>
+                        <span class="tag">Product Detail</span>
+                        <span class="tag">Advanced Search</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu13_16_WebBanLaptop/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu13_16_WebBanLaptop/index.php', 'Nhiệm Vụ 13 - Web Bán Laptop End User')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 14 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 14 web bán laptop admin userlist useradd edit delete bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 14</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Web Bán Laptop (Phần Quản Trị)</h3>
+                    <p class="card-desc">Phân hệ quản trị viên: Quản lý danh sách Users (userList, userAdd, userEdit, userDetail, userDelete) và quản lý kho sản phẩm.</p>
+                    <div class="card-tags">
+                        <span class="tag">Admin CRUD</span>
+                        <span class="tag">User Management</span>
+                        <span class="tag">Photo Upload</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu13_16_WebBanLaptop/admin/userList.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu13_16_WebBanLaptop/admin/userList.php', 'Nhiệm Vụ 14 - Web Bán Laptop Admin')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 15 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 15 giỏ hàng shopping cart cartview cartadd session bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 15</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Chức Năng Giỏ Hàng (Shopping Cart)</h3>
+                    <p class="card-desc">Xây dựng giỏ hàng lưu trữ bằng Session: Thêm sản phẩm, cập nhật số lượng, xóa từng món, xóa toàn bộ và tự động tính tổng tiền.</p>
+                    <div class="card-tags">
+                        <span class="tag">Session Cart</span>
+                        <span class="tag">Quantity Update</span>
+                        <span class="tag">Total Sum</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu13_16_WebBanLaptop/cartView.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu13_16_WebBanLaptop/cartView.php', 'Nhiệm Vụ 15 - Giỏ Hàng Shopping Cart')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 16 -->
+                <div class="task-card" data-category="bai4" data-keywords="nhiệm vụ 16 tích hợp rich text box ckeditor wysiwyg productadd bài 4">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 16</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Tích Hợp Rich Text Editor (CKEditor)</h3>
+                    <p class="card-desc">Tích hợp thanh công cụ soạn thảo định dạng phong phú WYSIWYG cho trường mô tả chi tiết sản phẩm laptop trong Admin.</p>
+                    <div class="card-tags">
+                        <span class="tag">CKEditor</span>
+                        <span class="tag">WYSIWYG Bar</span>
+                        <span class="tag">Rich Formatting</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 4/NhiemVu13_16_WebBanLaptop/admin/productAdd.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 4/NhiemVu13_16_WebBanLaptop/admin/productAdd.php', 'Nhiệm Vụ 16 - Tích Hợp Rich Text Box')">Xem nhanh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL QUICK PREVIEW DRAWER -->
+    <div class="modal-overlay" id="previewModal" onclick="closePreviewOnBackdrop(event)">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title-box">
+                    <span class="card-code" id="modalTag">Preview</span>
+                    <h3 id="modalTitle">Xem trước bài tập</h3>
+                </div>
+                <div class="modal-controls">
+                    <button class="modal-btn" onclick="reloadPreview()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                        Tải lại
+                    </button>
+                    <a id="modalExternalLink" href="#" target="_blank" class="modal-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        Mở tab mới
+                    </a>
+                    <button class="modal-close" onclick="closePreview()">✕ Đóng</button>
+                </div>
+            </div>
+            <iframe id="previewIframe" class="modal-iframe" src="about:blank"></iframe>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>
+            Báo Cáo Thực Hành Học Phần: <span class="footer-highlight">Công Nghệ Web An Toàn (CNWAT)</span>
+        </p>
+        <p style="margin-top: 6px; font-size: 12px; color: var(--text-muted);">
+            Sinh viên thực hiện: <strong>Phạm Tiến Đạt</strong> &bull; STT: <strong>04</strong> &bull; MSSV: <strong>AT200311</strong> &bull; Lớp: <strong>AT20A</strong> &bull; Học viện Kỹ thuật Mật mã
+        </p>
+    </footer>
+
+    <!-- INTERACTION LOGIC JAVASCRIPT -->
+    <script>
+        // 1. Dark / Light Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('cnwat_theme', newTheme);
+            updateThemeButton(newTheme);
+        }
+
+        function updateThemeButton(theme) {
+            const icon = document.getElementById('themeIcon');
+            const text = document.getElementById('themeText');
+            if (theme === 'dark') {
+                icon.textContent = '☀️';
+                text.textContent = 'Giao diện Sáng';
+            } else {
+                icon.textContent = '🌙';
+                text.textContent = 'Giao diện Tối';
+            }
+        }
+
+        // Init theme from storage
+        const savedTheme = localStorage.getItem('cnwat_theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeButton(savedTheme);
+
+        // 2. Filter Category Tabs
+        let currentFilter = 'all';
+
+        function filterCategory(category, btnElement) {
+            currentFilter = category;
+            
+            // Update active state in buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+
+            applyFilters();
+        }
+
+        // 3. Search Filter Logic
+        function handleSearch() {
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.task-card');
+            const groupB2 = document.getElementById('group-bai2');
+            const groupB3 = document.getElementById('group-bai3');
+            const groupB4 = document.getElementById('group-bai4');
+
+            let visibleB2 = 0;
+            let visibleB3 = 0;
+            let visibleB4 = 0;
+
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+                const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+                const code = (card.querySelector('.card-code') ? card.querySelector('.card-code').textContent : '').toLowerCase();
+
+                const matchesCategory = (currentFilter === 'all') || (category === currentFilter);
+                const matchesQuery = query === '' || 
+                    title.includes(query) || 
+                    desc.includes(query) || 
+                    keywords.includes(query) || 
+                    code.includes(query);
+
+                if (matchesCategory && matchesQuery) {
+                    card.style.display = 'flex';
+                    if (category === 'bai2') visibleB2++;
+                    if (category === 'bai3') visibleB3++;
+                    if (category === 'bai4') visibleB4++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Toggle category header groups visibility
+            if (currentFilter === 'bai2') {
+                groupB2.style.display = 'block';
+                groupB3.style.display = 'none';
+                if (groupB4) groupB4.style.display = 'none';
+            } else if (currentFilter === 'bai3') {
+                groupB2.style.display = 'none';
+                groupB3.style.display = 'block';
+                if (groupB4) groupB4.style.display = 'none';
+            } else if (currentFilter === 'bai4') {
+                groupB2.style.display = 'none';
+                groupB3.style.display = 'none';
+                if (groupB4) groupB4.style.display = 'block';
+            } else {
+                groupB2.style.display = visibleB2 > 0 ? 'block' : 'none';
+                groupB3.style.display = visibleB3 > 0 ? 'block' : 'none';
+                if (groupB4) groupB4.style.display = visibleB4 > 0 ? 'block' : 'none';
+            }
+        }
+
+        // 4. Preview Modal Iframe Controller
+        function openPreview(url, title) {
+            const modal = document.getElementById('previewModal');
+            const iframe = document.getElementById('previewIframe');
+            const titleEl = document.getElementById('modalTitle');
+            const extLink = document.getElementById('modalExternalLink');
+
+            titleEl.textContent = title;
+            extLink.href = url;
+            iframe.src = url;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePreview() {
+            const modal = document.getElementById('previewModal');
+            const iframe = document.getElementById('previewIframe');
+            iframe.src = 'about:blank';
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closePreviewOnBackdrop(e) {
+            if (e.target.id === 'previewModal') {
+                closePreview();
+            }
+        }
+
+        function reloadPreview() {
+            const iframe = document.getElementById('previewIframe');
+            iframe.src = iframe.src;
+        }
+
+        // Escape key to close modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePreview();
+            }
+        });
+    </script>
+</body>
+</html>

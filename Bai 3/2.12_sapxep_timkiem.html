@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.12 - Sắp Xếp & Tìm Kiếm Trên Bảng | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho Bảng Sản Phẩm Sắp Xếp & Tìm Kiếm theo Mục 7.12 */
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        #searchInput {
+            padding: 8px 14px;
+            font-size: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            width: 320px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        #searchInput:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        #productTable {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        #productTable th, #productTable td {
+            border: 1px solid #000000;
+            padding: 9px 14px;
+            text-align: left;
+        }
+
+        #productTable thead th {
+            background-color: #f1f5f9;
+            color: #0f172a;
+            user-select: none;
+        }
+
+        /* Ô tiêu đề có thể sắp xếp: bàn tay, tương đối để hiển thị mũi tên */
+        th.sortable {
+            cursor: pointer;
+            position: relative;
+            padding-right: 28px;
+        }
+
+        th.sortable:hover {
+            background-color: #e2e8f0;
+        }
+
+        th.sortable::after {
+            content: "";
+            position: absolute;
+            right: 10px;
+            font-size: 12px;
+            color: #2563eb;
+        }
+
+        /* Mũi tên tăng dần ▲ */
+        th.sortable.sorted-asc::after {
+            content: "▲";
+        }
+
+        /* Mũi tên giảm dần ▼ */
+        th.sortable.sorted-desc::after {
+            content: "▼";
+        }
+
+        /* Highlight từ khóa tìm kiếm màu vàng theo đề bài */
+        .highlight {
+            background-color: #fef08a !important; /* Màu vàng neon */
+            color: #854d0e;
+            font-weight: bold;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Thông tin sinh viên cá nhân hóa -->
+    <div class="student-info">
+        <h4>Thông tin SV</h4>
+        <div class="student-avatar">[ Ảnh 3x4 ]</div>
+        <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+        <p><strong>STT:</strong> 04</p>
+        <p><strong>MSSV:</strong> AT200311</p>
+        <p><strong>Lớp:</strong> AT20A</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <h1>SẮP XẾP VÀ TÌM KIẾM TRÊN BẢNG DỮ LIỆU</h1>
+        <p>Mục 7.12: Đảo chiều sắp xếp ▲/▼, tìm kiếm trực tiếp và Highlight từ khóa</p>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>DANH MỤC BÀI TẬP</h3>
+        <ul>
+            <li><a href="index.html">Trang chủ tổng hợp</a></li>
+            <li><a href="2.1_viju.html">2.1. 14 Ví dụ mẫu JS</a></li>
+            <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+            <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+            <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+            <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+            <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+            <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+            <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+            <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+            <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+            <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+            <li><a href="2.12_sapxep_timkiem.html" class="active">2.12. Sắp xếp & Tìm kiếm</a></li>
+        </ul>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <h2 class="content-title">MỤC 7.12: BẢNG SẢN PHẨM (SORT & LIVE SEARCH)</h2>
+
+        <!-- Khung tìm kiếm sản phẩm -->
+        <div class="search-container">
+            <label for="searchInput" style="font-weight: bold; font-size: 14px;">Tìm kiếm sản phẩm:</label>
+            <input type="text" id="searchInput" placeholder="Nhập từ khóa cần tìm (vd: máy, điều hòa, SP004)...">
+        </div>
+
+        <!-- Bảng sản phẩm -->
+        <table id="productTable">
+            <thead>
+                <tr>
+                    <th style="width: 50px; text-align: center;">TT</th>
+                    <th class="sortable" data-col="1" style="width: 160px;">Mã sản phẩm</th>
+                    <th class="sortable" data-col="2">Tên sản phẩm</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">1</td>
+                    <td>SP001</td>
+                    <td>Máy giặt Panasonic Inverter</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">2</td>
+                    <td>SP002</td>
+                    <td>Bếp đa năng thông minh</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">3</td>
+                    <td>SP003</td>
+                    <td>Lò sưởi gốm gia đình</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">4</td>
+                    <td>SP004</td>
+                    <td>Điều hòa nhiệt độ Daikin</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">5</td>
+                    <td>SP005</td>
+                    <td>Tủ lạnh Hitachi hai cánh</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">6</td>
+                    <td>SP006</td>
+                    <td>Robot hút bụi lau nhà Xiaomi</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+    </div>
+</div>
+
+<script>
+    /* =========================================================================
+       JAVASCRIPT SẮP XẾP VÀ TÌM KIẾM TRÊN BẢNG (MỤC 7.12)
+       Sinh viên thực hiện: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+       ========================================================================= */
+
+    const table = document.getElementById('productTable');
+    const headers = table.querySelectorAll('th.sortable');
+    let sortDirection = {}; // Lưu trữ chiều sắp xếp cho từng cột (true: asc, false: desc)
+
+    // --- 1. CHỨC NĂNG SẮP XẾP KHI CLICK VÀO TIÊU ĐỀ CỘT ---
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const colIndex = parseInt(header.dataset.col);
+
+            // Đảo chiều sắp xếp nếu đã bấm, hoặc mặc định là tăng dần
+            sortDirection[colIndex] = !sortDirection[colIndex];
+
+            // Xóa icon và class sắp xếp ở tất cả các cột khác
+            headers.forEach(h => h.classList.remove('sorted-asc', 'sorted-desc'));
+
+            // Lấy danh sách các hàng dữ liệu trong tbody
+            const rows = Array.from(table.tBodies[0].rows);
+
+            // Thực hiện sắp xếp mảng các hàng dựa vào nội dung cột
+            rows.sort((a, b) => {
+                const cellA = a.cells[colIndex].textContent.trim().toLowerCase();
+                const cellB = b.cells[colIndex].textContent.trim().toLowerCase();
+
+                return sortDirection[colIndex]
+                    ? cellA.localeCompare(cellB, 'vi')
+                    : cellB.localeCompare(cellA, 'vi');
+            });
+
+            // Gán lại các hàng đã sắp xếp vào tbody và cập nhật lại số thứ tự (cột 0)
+            rows.forEach((row, i) => {
+                row.cells[0].textContent = i + 1;
+                table.tBodies[0].appendChild(row);
+            });
+
+            // Thêm class để CSS hiển thị mũi tên ▲ hoặc ▼
+            header.classList.add(sortDirection[colIndex] ? 'sorted-asc' : 'sorted-desc');
+        });
+    });
+
+    // --- 2. CHỨC NĂNG TÌM KIẾM TRỰC TIẾP VÀ TÔ VÀNG (HIGHLIGHT) TỪ KHÓA ---
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const keyword = this.value.trim().toLowerCase();
+        const rows = table.tBodies[0].rows;
+
+        for (let row of rows) {
+            let found = false;
+
+            // Quét qua các cột từ Mã sản phẩm (cột 1) và Tên sản phẩm (cột 2)
+            for (let i = 1; i < row.cells.length; i++) {
+                const cell = row.cells[i];
+                const text = cell.textContent;
+                const lower = text.toLowerCase();
+
+                if (keyword && lower.includes(keyword)) {
+                    found = true;
+                    // Dùng biểu thức chính quy Regex để bọc từ khóa bằng <span class="highlight">
+                    // Escape các ký tự đặc biệt nếu có
+                    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const regex = new RegExp(`(${escaped})`, 'gi');
+                    cell.innerHTML = text.replace(regex, '<span class="highlight">$1</span>');
+                } else {
+                    // Trả lại text gốc không bọc highlight
+                    cell.innerHTML = text;
+                }
+            }
+
+            // Nếu khớp từ khóa hoặc ô tìm kiếm rỗng thì hiện dòng, ngược lại ẩn dòng
+            row.style.display = found || keyword === "" ? "" : "none";
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mục 7.1 - 14 Ví Dụ JS Mẫu | Phạm Tiến Đạt - AT200311</title>
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        /* CSS cho bộ 14 ví dụ */
+        .example-box {
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #f8fafc;
+        }
+
+        .example-title {
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .demo-area {
+            background: #fff;
+            border: 1px dashed #94a3b8;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+
+        button.btn-demo {
+            padding: 6px 14px;
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        button.btn-demo:hover {
+            background-color: #1d4ed8;
+        }
+
+        input.input-demo {
+            padding: 5px 8px;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Thông tin sinh viên -->
+        <div class="student-info">
+            <h4>Thông tin SV</h4>
+            <div class="student-avatar">[ Ảnh 3x4 ]</div>
+            <p><strong>Họ tên:</strong> Phạm Tiến Đạt</p>
+            <p><strong>STT:</strong> 04</p>
+            <p><strong>MSSV:</strong> AT200311</p>
+            <p><strong>Lớp:</strong> AT20A</p>
+        </div>
+
+        <!-- Banner -->
+        <div class="banner">
+            <h1>MỤC 7.1: TỔNG HỢP 14 VÍ DỤ JAVASCRIPT MẪU</h1>
+            <p>Học phần: Công nghệ Web an toàn | Sinh viên: Phạm Tiến Đạt</p>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>DANH MỤC BÀI TẬP</h3>
+            <ul>
+                <li><a href="index.html">Trang chủ tổng hợp</a></li>
+                <li><a href="2.1_viju.html" class="active">2.1. 14 Ví dụ mẫu JS</a></li>
+                <li><a href="2.2_tracnghiem.html">2.2. Thi trắc nghiệm</a></li>
+                <li><a href="2.3_lop.html">2.3. Form Lớp</a></li>
+                <li><a href="2.4_hoso.html">2.4. Form Hồ sơ</a></li>
+                <li><a href="2.5_dangky.html">2.5. Form Đăng ký</a></li>
+                <li><a href="2.6_danhsach.html">2.6. Danh sách nhân sự</a></li>
+                <li><a href="2.7_thucdon.html">2.7. Thực đơn</a></li>
+                <li><a href="2.8_tab.html">2.8. Tab nội dung</a></li>
+                <li><a href="2.9_cay.html">2.9. Cây thư mục</a></li>
+                <li><a href="2.10_maytinh.html">2.10. Máy tính điện tử</a></li>
+                <li><a href="2.11_hoatcanh.html">2.11. Hoạt cảnh Jump</a></li>
+                <li><a href="2.12_sapxep_timkiem.html">2.12. Sắp xếp & Tìm kiếm</a></li>
+            </ul>
+        </div>
+
+        <!-- Nội dung chính -->
+        <div class="main-content">
+            <h2 class="content-title">Chi Tiết 14 Ví Dụ JavaScript Trong Giáo Trình</h2>
+
+            <!-- Câu 1 -->
+            <div class="example-box">
+                <div class="example-title">Câu 1. Ví dụ sử dụng biến trong JS</div>
+                <p style="font-size: 13px; color: #64748b;">(Khai báo biến name và gán thông tin sinh viên)</p>
+                <div class="demo-area" id="demo1"></div>
+            </div>
+
+            <!-- Câu 2 -->
+            <div class="example-box">
+                <div class="example-title">Câu 2. Sử dụng Textbox và Chương trình con</div>
+                <form name="bai1" onsubmit="return false;">
+                    <input type="text" name="T1" class="input-demo" placeholder="Nhập giá trị...">
+                    <input type="button" class="btn-demo" value="Chạy thử" onclick="chayCau2()">
+                </form>
+            </div>
+
+            <!-- Câu 3 -->
+            <div class="example-box">
+                <div class="example-title">Câu 3. Ví dụ sử dụng câu lệnh IF (Kiểm tra chẵn / lẻ)</div>
+                <form name="bai3" onsubmit="return false;">
+                    <input type="number" name="T1" class="input-demo" placeholder="Nhập một số nguyên...">
+                    <input type="button" class="btn-demo" value="Kiểm tra" onclick="chayCau3()">
+                </form>
+            </div>
+
+            <!-- Câu 4 -->
+            <div class="example-box">
+                <div class="example-title">Câu 4. Sử dụng đối tượng ngày tháng năm (Date) và if..else</div>
+                <div class="demo-area" id="demo4"></div>
+            </div>
+
+            <!-- Câu 5 -->
+            <div class="example-box">
+                <div class="example-title">Câu 5. Ví dụ sử dụng câu lệnh switch (Thứ trong tuần)</div>
+                <div class="demo-area" id="demo5"></div>
+            </div>
+
+            <!-- Câu 6 -->
+            <div class="example-box">
+                <div class="example-title">Câu 6. Ví dụ sử dụng confirm</div>
+                <input type="button" class="btn-demo" value="Display a confirm box" onclick="disp_confirm()">
+                <div class="demo-area" id="demo6" style="margin-top: 8px;">Kết quả sẽ hiển thị ở đây...</div>
+            </div>
+
+            <!-- Câu 7 -->
+            <div class="example-box">
+                <div class="example-title">Câu 7. Ví dụ sử dụng prompt</div>
+                <input type="button" class="btn-demo" value="Display a prompt box" onclick="disp_prompt()">
+                <div class="demo-area" id="demo7" style="margin-top: 8px;">Kết quả sẽ hiển thị ở đây...</div>
+            </div>
+
+            <!-- Câu 8 -->
+            <div class="example-box">
+                <div class="example-title">Câu 8. Ví dụ sử dụng kiểu String</div>
+                <div class="demo-area" id="demo8"></div>
+            </div>
+
+            <!-- Câu 9 -->
+            <div class="example-box">
+                <div class="example-title">Câu 9. Ví dụ sử dụng kiểu ARRAY và for..in</div>
+                <div class="demo-area" id="demo9"></div>
+            </div>
+
+            <!-- Câu 10 -->
+            <div class="example-box">
+                <div class="example-title">Câu 10. Ví dụ thiết lập thời gian (setTimeout alert sau 5s)</div>
+                <button class="btn-demo" onclick="timedMsg()">Bắt đầu đếm 5 giây</button>
+                <span id="demo10-status" style="margin-left: 10px; color: #d97706; font-size: 13px;"></span>
+            </div>
+
+            <!-- Câu 11 -->
+            <div class="example-box">
+                <div class="example-title">Câu 11. Chuỗi thiết lập thời gian hiển thị text</div>
+                <form name="lam" onsubmit="return false;">
+                    <input type="button" class="btn-demo" value="Bắt đầu timed text" onclick="timedText()">
+                    <input type="text" id="txt" class="input-demo" style="width: 250px;" readonly
+                        placeholder="Chờ bấm nút...">
+                </form>
+            </div>
+
+            <!-- Câu 12 -->
+            <div class="example-box">
+                <div class="example-title">Câu 12. Đồng hồ số thời gian thực</div>
+                <div class="demo-area" style="font-size: 20px; font-weight: bold; color: #dc2626;" id="clock"></div>
+            </div>
+
+            <!-- Câu 13 -->
+            <div class="example-box">
+                <div class="example-title">Câu 13. Hiệu ứng rê chuột đổi ảnh (mouseOver / mouseOut)</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <img id="hoverImg" name="b1"
+                        src="https://via.placeholder.com/206x106/3498db/ffffff?text=Image+A+(Dua+chuot+vao)"
+                        alt="Chao ban" width="206" height="106" onmouseover="mouseOver()" onmouseout="mouseOut()"
+                        style="border: 2px solid #cbd5e1; border-radius: 4px; cursor: pointer;">
+                    <span style="font-size: 13px; color: #64748b;">(Rê chuột qua ảnh để thấy đổi nội dung sang Image
+                        B)</span>
+                </div>
+            </div>
+
+            <!-- Câu 14 -->
+            <div class="example-box">
+                <div class="example-title">Câu 14. Sử dụng Select ... option và Mảng tra cứu</div>
+                <form name="myform" onsubmit="return false;">
+                    <label style="font-size: 13px; font-weight: bold;">Chọn cán bộ:</label>
+                    <select id="cbSelect" class="input-demo"
+                        onchange="disphone(phone, this.options[this.selectedIndex].value);">
+                        <option value="">-- Vui lòng chọn --</option>
+                        <option value="dat">Phạm Tiến Đạt (STT 04 - AT200311)</option>
+                        <option value="lam">Lê Thanh Lâm</option>
+                        <option value="duc">Nguyễn Đình Minh Đức</option>
+                        <option value="thinh">Trần Văn Thịnh</option>
+                        <option value="hien">Đỗ Thế Hiền</option>
+                        <option value="daotao">Phòng Đào tạo</option>
+                    </select>
+                    <input type="text" name="numbox" class="input-demo" placeholder="Số điện thoại hiển thị tại đây"
+                        readonly style="background: #e2e8f0; width: 220px;">
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Thông tin bản quyền &copy; 2026 - Sinh viên: Phạm Tiến Đạt | STT: 04 | MSSV: AT200311
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================================
+           CHƯƠNG TRÌNH JAVASCRIPT THỰC HIỆN 14 VÍ DỤ TRONG BÀI GIẢNG
+           Sinh viên: Phạm Tiến Đạt - STT: 04 - MSSV: AT200311
+           ========================================================================= */
+
+        // --- CÂU 1: SỬ DỤNG BIẾN ---
+        // Khai báo biến name, gán tên sinh viên và xuất ra màn hình
+        (function runCau1() {
+            var name = "Phạm Tiến Đạt";
+            var html = "<b>" + name + "</b><br>";
+            name = "AT200311 - Lớp AT20";
+            html += name;
+            document.getElementById("demo1").innerHTML = html;
+        })();
+
+        // --- CÂU 2: TEXTBOX VÀ CHƯƠNG TRÌNH CON ---
+        // Hàm lấy giá trị từ ô input T1 của form bai1 và alert ra màn hình
+        function chayCau2() {
+            var a = window.document.bai1.T1.value;
+            if (!a) {
+                alert("Bạn chưa nhập giá trị vào ô textbox!");
+                return;
+            }
+            alert("Số bạn vừa nhập là: " + a);
+        }
+
+        // --- CÂU 3: CÂU LỆNH IF (Số chẵn / lẻ) ---
+        // Ép kiểu chuỗi sang số (* 1) rồi dùng toán tử % để kiểm tra chia hết cho 2
+        function chayCau3() {
+            var val = window.document.bai3.T1.value;
+            if (val.trim() === "") {
+                alert("Vui lòng nhập một số!");
+                return;
+            }
+            var a = val * 1;
+            if ((a % 2) === 0) {
+                alert(a + " là số chẵn");
+            } else {
+                alert(a + " là số lẻ");
+            }
+        }
+
+        // --- CÂU 4: ĐỐI TƯỢNG DATE VÀ LỜI CHÀO THEO GIỜ ---
+        (function runCau4() {
+            var d = new Date();
+            var time = d.getHours();
+            var msg = "";
+            if (time < 10) {
+                msg = "<b>Good morning</b> (Bây giờ là " + time + "h sáng)";
+            } else if (time >= 10 && time < 16) {
+                msg = "<b>Good day / afternoon</b> (Bây giờ là " + time + "h)";
+            } else {
+                msg = "<b>Hello World / Good evening!</b> (Bây giờ là " + time + "h tối)";
+            }
+            document.getElementById("demo4").innerHTML = msg;
+        })();
+
+        // --- CÂU 5: CÂU LỆNH SWITCH LẤY THỨ TRONG TUẦN ---
+        (function runCau5() {
+            var d = new Date();
+            var theDay = d.getDay(); // 0: Chủ nhật, 1: Thứ hai,..., 6: Thứ bảy
+            var textDay = "";
+            switch (theDay) {
+                case 5: textDay = "Friday (Thứ Sáu)"; break;
+                case 6: textDay = "Saturday (Thứ Bảy)"; break;
+                case 0: textDay = "Sunday (Chủ Nhật)"; break;
+                case 1: textDay = "Monday - Chúc đầu tuần vui vẻ!"; break;
+                default: textDay = "Hôm nay là ngày trong tuần (Thứ " + (theDay + 1) + ") - Chúc bạn làm việc hiệu quả!";
+            }
+            document.getElementById("demo5").innerHTML = "Thứ hiện tại: <strong>" + textDay + "</strong>";
+        })();
+
+        // --- CÂU 6: HỘP THOẠI CONFIRM ---
+        function disp_confirm() {
+            var r = confirm("Nhấn một nút (OK hoặc Cancel):");
+            var out = document.getElementById("demo6");
+            if (r === true) {
+                out.innerHTML = "<span style='color:green; font-weight:bold;'>Bạn vừa chọn: OK!</span>";
+            } else {
+                out.innerHTML = "<span style='color:red; font-weight:bold;'>Bạn vừa chọn: Cancel!</span>";
+            }
+        }
+
+        // --- CÂU 7: HỘP THOẠI PROMPT ---
+        function disp_prompt() {
+            var name = prompt("VUI LÒNG NHẬP TÊN CỦA BẠN:", "Phạm Tiến Đạt");
+            var out = document.getElementById("demo7");
+            if (name != null && name !== "") {
+                out.innerHTML = "XIN CHÀO <strong>" + name + "</strong>! Chúc bạn một ngày tốt lành.";
+            }
+        }
+
+        // --- CÂU 8: CÁC PHƯƠNG THỨC XỬ LÝ CHUỖI STRING ---
+        (function runCau8() {
+            var str = "Hello world!";
+            var res = "";
+            res += "Chuỗi gốc: '" + str + "'<br>";
+            res += "Vị trí của 'Hello': " + str.indexOf("Hello") + "<br>";
+            res += "Vị trí của 'World': " + str.indexOf("World") + " (-1 vì phân biệt hoa thường)<br>";
+            res += "Vị trí của 'world': " + str.indexOf("world") + "<br>";
+            res += "In hoa (toUpperCase): " + str.toUpperCase() + "<br>";
+            res += "Độ dài chuỗi (length): " + str.length + "<br>";
+            res += "Thay thế (replace 'w' thành 'W'): " + str.replace("w", "W");
+            document.getElementById("demo8").innerHTML = res;
+        })();
+
+        // --- CÂU 9: MẢNG ARRAY VÀ VÒNG LẶP FOR..IN ---
+        (function runCau9() {
+            var mycars = new Array();
+            mycars[0] = "Saab";
+            mycars[1] = "Volvo";
+            mycars[2] = "BMW";
+            mycars[3] = "Mercedes-Benz";
+            var res = "Danh sách xe hơi trong mảng:<br>";
+            for (var x in mycars) {
+                res += "- Xe " + x + ": <strong>" + mycars[x] + "</strong><br>";
+            }
+            document.getElementById("demo9").innerHTML = res;
+        })();
+
+        // --- CÂU 10: SETTIMEOUT CƠ BẢN ---
+        function timedMsg() {
+            var st = document.getElementById("demo10-status");
+            st.innerText = "Đang đếm 5 giây... xin chờ";
+            setTimeout(function () {
+                alert("Đã đủ 5 giây!");
+                st.innerText = "Đã thực thi xong 5 giây.";
+            }, 5000);
+        }
+
+        // --- CÂU 11: CHUỖI SETTIMEOUT HIỂN THỊ TEXT THEO MỐC THỜI GIAN ---
+        function timedText() {
+            var txtBox = document.getElementById("txt");
+            txtBox.value = "Đang chạy đếm ngược...";
+            setTimeout(function () {
+                window.document.lam.txt.value = "2 seconds passed!";
+            }, 2000);
+            setTimeout(function () {
+                document.getElementById("txt").value = "4 seconds passed!";
+            }, 4000);
+            setTimeout(function () {
+                document.getElementById("txt").value = "6 seconds passed (Hoàn thành)!";
+            }, 6000);
+        }
+
+        // --- CÂU 12: ĐỒNG HỒ SỐ CHẠY THỜI GIAN THỰC ---
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            var clk = document.getElementById('clock');
+            if (clk) {
+                clk.innerHTML = h + ":" + m + ":" + s;
+            }
+            setTimeout(startTime, 500);
+        }
+        // Hàm phụ trợ thêm số 0 vào trước số nhỏ hơn 10 (ví dụ 09 thay vì 9)
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i; }
+            return i;
+        }
+        window.addEventListener("load", startTime);
+
+        // --- CÂU 13: HIỆU ỨNG RÊ CHUỘT ĐỔI ẢNH ---
+        function mouseOver() {
+            document.getElementById("hoverImg").src = "https://via.placeholder.com/206x106/27ae60/ffffff?text=Image+B+(Re+chuot+ra)";
+        }
+        function mouseOut() {
+            document.getElementById("hoverImg").src = "https://via.placeholder.com/206x106/3498db/ffffff?text=Image+A+(Dua+chuot+vao)";
+        }
+
+        // --- CÂU 14: SỬ DỤNG SELECT OPTION VÀ MẢNG KHÓA KẾT HỢP ---
+        var phone = new Array();
+        phone["dat"] = "0988.123.456 (SV: Phạm Tiến Đạt)";
+        phone["lam"] = "090540468";
+        phone["duc"] = "0905274747";
+        phone["thinh"] = "0904909086";
+        phone["hien"] = "0905146560";
+        phone["daotao"] = "05113519929";
+
+        function disphone(thephone, entry) {
+            var num = thephone[entry] || "";
+            window.document.myform.numbox.value = num;
+        }
+    </script>
+
+</body>
+
+</html>
