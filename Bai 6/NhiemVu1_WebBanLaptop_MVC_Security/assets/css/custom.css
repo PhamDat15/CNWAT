@@ -1,0 +1,252 @@
+/* ====================================================================
+   CUSTOM CSS FOR LAPTOP MVC SECURITY E-COMMERCE (KMA CNWAT)
+   ==================================================================== */
+
+:root {
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --secondary-color: #7c3aed;
+    --dark-bg: #0f172a;
+    --dark-card: #1e293b;
+    --text-primary: #0f172a;
+    --badge-discount: #ef4444;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.navbar-custom {
+    background: #ffffff;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.brand-badge {
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+/* Search Dropdown */
+.search-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+}
+
+.search-results-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e2e8f0;
+    z-index: 1050;
+    max-height: 380px;
+    overflow-y: auto;
+    display: none;
+}
+
+.search-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    text-decoration: none;
+    color: #1e293b;
+    transition: background 0.15s ease;
+}
+
+.search-item:hover {
+    background: #f8fafc;
+}
+
+.search-item img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    background: #f8fafc;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+/* Product Cards */
+.product-card {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px -10px rgba(37, 99, 235, 0.12);
+    border-color: #cbd5e1;
+}
+
+.product-card-img-wrap {
+    height: 200px;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    position: relative;
+}
+
+.product-card-img-wrap img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-card-img-wrap img {
+    transform: scale(1.05);
+}
+
+.badge-brand {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #3b82f6;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.badge-discount-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #ef4444;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.product-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #0f172a;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 42px;
+}
+
+.product-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.product-title a:hover {
+    color: #2563eb;
+}
+
+.product-price-current {
+    font-size: 18px;
+    font-weight: 800;
+    color: #dc2626;
+}
+
+.product-price-old {
+    font-size: 13px;
+    color: #94a3b8;
+    text-decoration: line-through;
+    margin-left: 8px;
+}
+
+/* Hero Banner */
+.hero-slider-wrap {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #172554 100%);
+    border-radius: 20px;
+    color: white;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-slider-wrap::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Admin Sidebar */
+.admin-sidebar {
+    min-height: calc(100vh - 60px);
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 24px 16px;
+}
+
+.admin-sidebar .nav-link {
+    color: #94a3b8;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+
+.admin-sidebar .nav-link:hover, .admin-sidebar .nav-link.active {
+    background: rgba(59, 130, 246, 0.15);
+    color: #38bdf8;
+}
+
+/* Security Badge Card */
+.security-banner {
+    background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

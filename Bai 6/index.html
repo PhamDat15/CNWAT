@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Thực Hành 6: Cơ Chế An Toàn & Kỹ Thuật Nâng Cao | Phạm Tiến Đạt - AT200311</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(59, 130, 246, 0.4);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .navbar-kma {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-logo-badge {
+            background: linear-gradient(135deg, #2563eb, #8b5cf6);
+            color: white;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .hero-section {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            backdrop-filter: blur(16px);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-card-hero {
+            background: rgba(17, 24, 39, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .task-card-hero:hover {
+            transform: translateY(-6px);
+            border-color: var(--border-highlight);
+            box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.2);
+        }
+
+        .badge-chip {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .badge-chip.highlight {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+
+        .table-security {
+            background: rgba(17, 24, 39, 0.5);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-security table {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        .table-security th {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+
+        .table-security td {
+            border-color: var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-kma sticky-top py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <span class="nav-logo-badge">KMA</span>
+                <div>
+                    <h6 class="mb-0 fw-bold text-white">HỌC VIỆN KỸ THUẬT MẬT MÃ <span class="badge bg-primary ms-1">CNWAT</span></h6>
+                    <small class="text-secondary" style="font-size: 11px;">Khoa An Toàn Thông Tin &bull; Cổng Điều Hướng Thực Hành Bài 6</small>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+                <a href="../index.html" class="btn btn-sm btn-outline-light rounded-pill px-3">
+                    <i class="fas fa-arrow-left me-1"></i> Cổng Tổng Thực Hành
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+
+        <!-- HERO SECTION -->
+        <div class="hero-section mb-5">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary px-3 py-2 rounded-pill mb-3">
+                        <i class="fas fa-shield-alt me-1"></i> BÀI TẬP 6 (PHIÊN BẢN 1.3)
+                    </span>
+                    <h1 class="display-5 fw-extrabold text-white mb-3">Cơ Chế An Toàn &amp; Kỹ Thuật Nâng Cao</h1>
+                    <p class="lead text-secondary mb-4" style="font-size: 16px;">
+                        Hoàn thành toàn diện 2 nhiệm vụ cốt lõi theo đề cương: Kiện toàn website bán laptop theo kiến trúc <strong>MVC</strong> tích hợp bộ cơ chế bảo mật nâng cao phòng chống OWASP Top 10, và xây dựng ứng dụng quản lý danh bạ chuẩn framework <strong>Laravel 11</strong>.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge-chip highlight"><i class="fas fa-check me-1"></i> Kiến trúc MVC Chuẩn</span>
+                        <span class="badge-chip highlight"><i class="fas fa-check me-1"></i> Xác thực &amp; Phân quyền RBAC</span>
+                        <span class="badge-chip highlight"><i class="fas fa-check me-1"></i> Chống SQLi / XSS / CSRF</span>
+                        <span class="badge-chip highlight"><i class="fas fa-check me-1"></i> Laravel Contacts App</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 mt-4 mt-lg-0">
+                    <div class="p-3 rounded-4" style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <img src="NhiemVu1_WebBanLaptop_MVC_Security/assets/images/avatar.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Pham+Tien+Dat&background=0D8ABC&color=fff'" width="54" height="54" class="rounded-circle border" alt="Avatar">
+                            <div>
+                                <h6 class="fw-bold mb-0 text-white">Phạm Tiến Đạt</h6>
+                                <small class="text-secondary">Tác giả thực hành</small>
+                            </div>
+                        </div>
+                        <div class="small text-secondary">
+                            <div class="d-flex justify-content-between py-1 border-bottom border-secondary border-opacity-25">
+                                <span>Mã sinh viên:</span> <strong class="text-white">AT200311</strong>
+                            </div>
+                            <div class="d-flex justify-content-between py-1 border-bottom border-secondary border-opacity-25">
+                                <span>Lớp chuyên ngành:</span> <strong class="text-white">AT20A</strong>
+                            </div>
+                            <div class="d-flex justify-content-between py-1">
+                                <span>Tiến độ hoàn thành:</span> <strong class="text-success">100% Hoàn hảo</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2 TASKS SHOWCASE -->
+        <div class="row g-4 mb-5">
+            <!-- NHIỆM VỤ 6.1 -->
+            <div class="col-lg-6">
+                <div class="task-card-hero p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="badge bg-primary px-3 py-2 rounded-pill">Nhiệm Vụ 6.1</span>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">Sẵn sàng trải nghiệm</span>
+                    </div>
+
+                    <h3 class="fw-bold text-white mb-2">Web Bán Laptop MVC &amp; Bảo Mật Nâng Cao</h3>
+                    <p class="text-secondary small mb-3">
+                        Kiện toàn website bán laptop từ Bài tập 4 theo mô hình MVC hoàn chỉnh, bảo mật đăng nhập Bcrypt, phân quyền Admin / Customer, giỏ hàng AJAX không tải lại trang, Rich Text Editor Quill.js và Datetime Picker Flatpickr.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <span class="badge-chip">MVC Architecture</span>
+                        <span class="badge-chip">PDO Prepared</span>
+                        <span class="badge-chip">CSRF Tokens</span>
+                        <span class="badge-chip">Bcrypt Hash</span>
+                        <span class="badge-chip">Rate Limiting</span>
+                        <span class="badge-chip">AJAX Cart</span>
+                        <span class="badge-chip">Quill WYSIWYG</span>
+                        <span class="badge-chip">Flatpickr</span>
+                    </div>
+
+                    <div class="mt-auto pt-3 border-top border-secondary border-opacity-25 d-flex flex-wrap gap-2">
+                        <a href="NhiemVu1_WebBanLaptop_MVC_Security/index.php" target="_blank" class="btn btn-primary rounded-pill px-4 flex-grow-1">
+                            <i class="fas fa-shopping-bag me-1"></i> Mở Cửa Hàng (Client)
+                        </a>
+                        <a href="NhiemVu1_WebBanLaptop_MVC_Security/index.php?r=admin/dashboard" target="_blank" class="btn btn-outline-danger rounded-pill px-3">
+                            <i class="fas fa-user-shield me-1"></i> Admin Panel
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NHIỆM VỤ 6.2 -->
+            <div class="col-lg-6">
+                <div class="task-card-hero p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="badge bg-danger px-3 py-2 rounded-pill"><i class="fab fa-laravel me-1"></i> Nhiệm Vụ 6.2</span>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 small">Sẵn sàng trải nghiệm</span>
+                    </div>
+
+                    <h3 class="fw-bold text-white mb-2">Quản Lý Danh Bạ (Contacts) Với Laravel</h3>
+                    <p class="text-secondary small mb-3">
+                        Xây dựng ứng dụng quản lý danh bạ chuẩn framework Laravel: Migration cấu trúc CSDL, Models, ContactController, Request Validation, Blade Layout, tìm kiếm thời gian thực, lọc nhóm và tính năng xuất file CSV tiếng Việt chuẩn UTF-8.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <span class="badge-chip">Laravel 11</span>
+                        <span class="badge-chip">Blade Templates</span>
+                        <span class="badge-chip">CRUD Resource</span>
+                        <span class="badge-chip">Form Validation</span>
+                        <span class="badge-chip">Upload Avatar</span>
+                        <span class="badge-chip">Export CSV</span>
+                        <span class="badge-chip">Flatpickr</span>
+                    </div>
+
+                    <div class="mt-auto pt-3 border-top border-secondary border-opacity-25 d-flex flex-wrap gap-2">
+                        <a href="NhiemVu2_Laravel_Contacts/index.php" target="_blank" class="btn btn-danger rounded-pill px-4 flex-grow-1" style="background-color: #ef4444;">
+                            <i class="fas fa-address-book me-1"></i> Mở Danh Bạ Contacts
+                        </a>
+                        <a href="NhiemVu2_Laravel_Contacts/index.php?r=contacts/create" target="_blank" class="btn btn-outline-light rounded-pill px-3">
+                            <i class="fas fa-plus me-1"></i> Thêm Liên Hệ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECURITY MATRIX TABLE -->
+        <div class="mb-5">
+            <h4 class="fw-bold text-white mb-3"><i class="fas fa-shield-virus text-success me-2"></i>Bảng Đối Soát Cơ Chế An Toàn Thực Hành (OWASP Web Security)</h4>
+            <div class="table-security p-3">
+                <div class="table-responsive">
+                    <table class="table table-borderless align-middle small">
+                        <thead>
+                            <tr>
+                                <th>Nguy cơ tấn công Web</th>
+                                <th>Cơ chế phòng vệ đã triển khai</th>
+                                <th>Vị trí mã nguồn kiểm soát</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>SQL Injection (SQLi)</strong></td>
+                                <td>Sử dụng 100% PDO Prepared Statements, tham số hóa toàn bộ đầu vào truy vấn</td>
+                                <td><code>core/Database.php</code> &bull; <code>core/Model.php</code></td>
+                                <td><span class="badge bg-success">Đã ngăn chặn</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cross-Site Scripting (XSS)</strong></td>
+                                <td>Bọc toàn bộ output qua <code>htmlspecialchars(ENT_QUOTES)</code> và CSP Headers</td>
+                                <td><code>core/Security.php::escape()</code></td>
+                                <td><span class="badge bg-success">Đã ngăn chặn</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cross-Site Request Forgery (CSRF)</strong></td>
+                                <td>Tạo mã CSRF Token động theo Session, xác thực nghiêm ngặt mọi request POST/PUT</td>
+                                <td><code>Security::validateCsrfToken()</code> &bull; <code>@csrf</code></td>
+                                <td><span class="badge bg-success">Đã ngăn chặn</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brute Force Login</strong></td>
+                                <td>Bộ đếm Rate Limiting: Khóa tạm thời 5 phút nếu đăng nhập sai quá 5 lần</td>
+                                <td><code>Security::checkRateLimit()</code></td>
+                                <td><span class="badge bg-success">Đã ngăn chặn</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Session Fixation &amp; Hijacking</strong></td>
+                                <td><code>session_regenerate_id(true)</code> khi đăng nhập; kiểm tra dấu vân tay User-Agent</td>
+                                <td><code>Security::startSecureSession()</code></td>
+                                <td><span class="badge bg-success">Đã ngăn chặn</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Remote Code Execution (RCE)</strong></td>
+                                <td>Kiểm duyệt MIME type tệp tải lên; khóa thực thi script trong <code>uploads/.htaccess</code></td>
+                                <td><code>Security::validateAndUploadImage()</code></td>
+                                <td><span class="badge bg-success">Đã ngăn chặn</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- DOCUMENTATION LINK -->
+        <div class="text-center py-4 border-top border-secondary border-opacity-25">
+            <a href="HUONG_DAN_VA_BAO_CAO_LAB6.md" target="_blank" class="btn btn-outline-info rounded-pill px-4 py-2">
+                <i class="fas fa-file-alt me-2"></i> Xem Tài Liệu Báo Cáo Kỹ Thuật Chi Tiết (Markdown)
+            </a>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="py-4 border-top border-secondary border-opacity-25 text-center text-secondary small">
+        &copy; 2026 Học Viện Kỹ Thuật Mật Mã &bull; Khoa An Toàn Thông Tin &bull; Sinh viên: Phạm Tiến Đạt (AT200311)
+    </footer>
+
+</body>
+</html>

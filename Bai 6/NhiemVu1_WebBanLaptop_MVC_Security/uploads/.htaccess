@@ -1,0 +1,6 @@
+# Chống thực thi mã PHP trong thư mục tải lên (Prevent File Upload Execution / RCE)
+<FilesMatch "(?i)\.(php|phtml|php3|php4|php5|php7|phps|phar|exe|pl|py|cgi)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+php_flag engine off

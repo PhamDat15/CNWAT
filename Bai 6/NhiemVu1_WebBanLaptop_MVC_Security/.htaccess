@@ -1,0 +1,20 @@
+# Apache Rewrite & Security Configuration
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Không ghi đè nếu yêu cầu là tệp hoặc thư mục có thật
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Định tuyến URL vào index.php?r=...
+    RewriteRule ^(.*)$ index.php?r=$1 [QSA,L]
+</IfModule>
+
+# Chặn truy cập trực tiếp vào các tệp tin nhạy cảm
+<FilesMatch "\.(sqlite|sql|log|ini|env|md)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

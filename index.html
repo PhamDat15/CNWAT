@@ -889,7 +889,7 @@
             <div class="stat-item">
                 <div class="stat-icon">📚</div>
                 <div class="stat-data">
-                    <h4 id="totalTasksCount">34</h4>
+                    <h4 id="totalTasksCount">36</h4>
                     <p>Tổng số bài tập thực hành</p>
                 </div>
             </div>
@@ -903,7 +903,7 @@
             <div class="stat-item">
                 <div class="stat-icon purple">💻</div>
                 <div class="stat-data">
-                    <h4>HTML5 &bull; JS &bull; PHP</h4>
+                    <h4>HTML5 &bull; JS &bull; PHP &bull; Laravel</h4>
                     <p>Công nghệ Frontend &amp; Backend</p>
                 </div>
             </div>
@@ -911,7 +911,7 @@
                 <div class="stat-icon amber">🛡️</div>
                 <div class="stat-data">
                     <h4>Web An Toàn</h4>
-                    <p>Kiểm duyệt &amp; Regex chặt chẽ</p>
+                    <p>OWASP Top 10 &amp; MVC Security</p>
                 </div>
             </div>
         </section>
@@ -920,7 +920,7 @@
         <div class="controls-bar">
             <div class="tab-filters">
                 <button class="filter-btn active" onclick="filterCategory('all', this)">
-                    Tất cả <span class="filter-badge" id="badgeAll">34</span>
+                    Tất cả <span class="filter-badge" id="badgeAll">36</span>
                 </button>
                 <button class="filter-btn" onclick="filterCategory('bai2', this)">
                     Bài 2: HTML &amp; CSS <span class="filter-badge" id="badgeB2">6</span>
@@ -930,6 +930,9 @@
                 </button>
                 <button class="filter-btn" onclick="filterCategory('bai4', this)">
                     Bài 4: PHP &amp; MySQL <span class="filter-badge" id="badgeB4">16</span>
+                </button>
+                <button class="filter-btn" onclick="filterCategory('bai6', this)">
+                    Bài 6: Nâng Cao &amp; Laravel <span class="filter-badge" id="badgeB6">2</span>
                 </button>
             </div>
 
@@ -1751,6 +1754,67 @@
             </div>
         </div>
 
+        <!-- =================== SECTION BÀI 6 =================== -->
+        <div class="category-group" id="group-bai6">
+            <div class="section-header">
+                <h2>
+                    <span>🛡️ Bài Thực Hành 6: Cơ Chế An Toàn &amp; Kỹ Thuật Nâng Cao (v1.3)</span>
+                </h2>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <a href="Bai 6/index.html" target="_blank" style="padding: 4px 12px; background: rgba(59,130,246,0.15); color: var(--primary); border: 1px solid rgba(59,130,246,0.3); border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none;">Cổng Tổng Bài 6 &rarr;</a>
+                    <span class="section-tag">2 Nhiệm Vụ Nâng Cao</span>
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <!-- NV 6.1 -->
+                <div class="task-card" data-category="bai6" data-keywords="nhiệm vụ 6.1 bài 6 mvc laptop web bán laptop bảo mật pdo sql injection xss csrf bcrypt brute force rate limit quill richtext flatpickr ajax jquery">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 6.1</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Kiện Toàn Web Bán Laptop MVC &amp; Bảo Mật</h3>
+                    <p class="card-desc">Tái cấu trúc MVC hoàn chỉnh, xác thực Bcrypt, phân quyền RBAC Admin/User, giỏ hàng AJAX Shopping Cart, Rich Text Editor Quill, Datetime Picker Flatpickr và phòng chống OWASP Top 10.</p>
+                    <div class="card-tags">
+                        <span class="tag">MVC Pattern</span>
+                        <span class="tag">OWASP Security</span>
+                        <span class="tag">AJAX Cart</span>
+                        <span class="tag">Quill WYSIWYG</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 6/NhiemVu1_WebBanLaptop_MVC_Security/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 6/NhiemVu1_WebBanLaptop_MVC_Security/index.php', 'Nhiệm Vụ 6.1 - Web Bán Laptop MVC & Bảo Mật')">Xem nhanh</button>
+                    </div>
+                </div>
+
+                <!-- NV 6.2 -->
+                <div class="task-card" data-category="bai6" data-keywords="nhiệm vụ 6.2 bài 6 laravel contacts danh bạ quản lý danh bạ blade validation crud export csv avatar flatpickr">
+                    <div class="card-top">
+                        <span class="card-code">Nhiệm Vụ 6.2</span>
+                        <div class="card-status"><span class="card-status-dot"></span> Sẵn sàng</div>
+                    </div>
+                    <h3 class="card-title">Ứng Dụng Quản Lý Danh Bạ (Laravel Contacts)</h3>
+                    <p class="card-desc">Xây dựng ứng dụng danh bạ chuẩn Laravel Framework: Migration, Model, Resource Controller, Blade Templates, Form Validation, upload avatar an toàn và xuất file CSV UTF-8.</p>
+                    <div class="card-tags">
+                        <span class="tag">Laravel 11</span>
+                        <span class="tag">Blade Layout</span>
+                        <span class="tag">Full CRUD</span>
+                        <span class="tag">Export CSV</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="Bai 6/NhiemVu2_Laravel_Contacts/index.php" target="_blank" class="btn-launch">
+                            <span>Mở Bài Tập</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                        </a>
+                        <button class="btn-preview" onclick="openPreview('Bai 6/NhiemVu2_Laravel_Contacts/index.php', 'Nhiệm Vụ 6.2 - Laravel Contacts')">Xem nhanh</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- MODAL QUICK PREVIEW DRAWER -->
@@ -1841,10 +1905,12 @@
             const groupB2 = document.getElementById('group-bai2');
             const groupB3 = document.getElementById('group-bai3');
             const groupB4 = document.getElementById('group-bai4');
+            const groupB6 = document.getElementById('group-bai6');
 
             let visibleB2 = 0;
             let visibleB3 = 0;
             let visibleB4 = 0;
+            let visibleB6 = 0;
 
             cards.forEach(card => {
                 const category = card.getAttribute('data-category');
@@ -1865,6 +1931,7 @@
                     if (category === 'bai2') visibleB2++;
                     if (category === 'bai3') visibleB3++;
                     if (category === 'bai4') visibleB4++;
+                    if (category === 'bai6') visibleB6++;
                 } else {
                     card.style.display = 'none';
                 }
@@ -1875,18 +1942,27 @@
                 groupB2.style.display = 'block';
                 groupB3.style.display = 'none';
                 if (groupB4) groupB4.style.display = 'none';
+                if (groupB6) groupB6.style.display = 'none';
             } else if (currentFilter === 'bai3') {
                 groupB2.style.display = 'none';
                 groupB3.style.display = 'block';
                 if (groupB4) groupB4.style.display = 'none';
+                if (groupB6) groupB6.style.display = 'none';
             } else if (currentFilter === 'bai4') {
                 groupB2.style.display = 'none';
                 groupB3.style.display = 'none';
                 if (groupB4) groupB4.style.display = 'block';
+                if (groupB6) groupB6.style.display = 'none';
+            } else if (currentFilter === 'bai6') {
+                groupB2.style.display = 'none';
+                groupB3.style.display = 'none';
+                if (groupB4) groupB4.style.display = 'none';
+                if (groupB6) groupB6.style.display = 'block';
             } else {
                 groupB2.style.display = visibleB2 > 0 ? 'block' : 'none';
                 groupB3.style.display = visibleB3 > 0 ? 'block' : 'none';
                 if (groupB4) groupB4.style.display = visibleB4 > 0 ? 'block' : 'none';
+                if (groupB6) groupB6.style.display = visibleB6 > 0 ? 'block' : 'none';
             }
         }
 

@@ -1,0 +1,40 @@
+#!/usr/bin/env php
+<?php
+
+define('LARAVEL_START', microtime(true));
+
+// Simple Artisan Runner
+$command = $argv[1] ?? 'help';
+
+if ($command === 'serve') {
+    $port = 8000;
+    foreach ($argv as $arg) {
+        if (str_starts_with($arg, '--port=')) {
+            $port = (int)str_replace('--port=', '', $arg);
+        }
+    }
+    echo "Starting Laravel Contacts Development Server: http://127.0.0.1:{$port}\n";
+    echo "Press Ctrl+C to stop the server.\n";
+    passthru("php -S 127.0.0.1:{$port} -t public");
+    exit(0);
+}
+
+if ($command === 'migrate' || $command === 'migrate:fresh') {
+    require_once __DIR__ . '/bootstrap/app.php';
+    LaravelKernel::init();
+    echo "Migration completed successfully!\n";
+    exit(0);
+}
+
+if ($command === 'db:seed') {
+    require_once __DIR__ . '/bootstrap/app.php';
+    LaravelKernel::init();
+    echo "Database seeding completed successfully!\n";
+    exit(0);
+}
+
+echo "Laravel Framework CLI (Artisan) - Contacts Management\n";
+echo "Available commands:\n";
+echo "  serve         Serve the application on the PHP development server\n";
+echo "  migrate       Run the database migrations\n";
+echo "  db:seed       Seed the database with records\n";
